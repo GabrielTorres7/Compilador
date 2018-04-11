@@ -5,6 +5,7 @@
  */
 package padrao;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,10 +44,10 @@ public class ComandoIfTest {
     @Test
     public void testExecuta() {
         System.out.println("run/ComandoIf");
-        ComandoIf instance = new ComandoIf();
+        ComandoIf instance = new ComandoIf(new ExpressaoLogica(true,"and",true), new ArrayList<Comando>(), false, null);
+        ComandoIf instance2 = new ComandoIf(new ExpressaoLogica(false,"and", false), new ArrayList<Comando>(), false, null);
         instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance2.run();
     }
     
 }

@@ -13,31 +13,31 @@ import java.util.ArrayList;
  */
 public class ComandoFor implements Comando{
     
-    private Integer inicio;
+    private ExpressaoAritmetica iterador;
     private String tipo;
     private Integer fim;
-    private ArrayList<Comando> comandos;
+    private ArrayList<Comando> blocoComandosFor;
     
-    public ComandoFor(Variavel var, String tipo, Expressao expressao, String comandos){
-        //this.inicio = var.getValue();
+    public ComandoFor(Variavel var, String tipo, Expressao expressao, ArrayList<Comando> comandos){
+        this.iterador = (ExpressaoAritmetica)var.getExpressao();
         this.tipo = tipo;
-        //this.lenght = expressao.solve();
-        //comandos (Separar em comandos atraves de uma funcao)
+        this.fim = ((Double)expressao.ResolveExpressao()).intValue();
+        this.blocoComandosFor = comandos;
     }
 
     @Override
     public void run() {
-        if(tipo == "to"){
-            for(int i = inicio;i<fim; i++){
-                for(Comando cmd: comandos){
-                    cmd.run();
-                }
+        if(tipo.equals("to")){
+            for(int i = ((Double)iterador.ResolveExpressao()).intValue();i<fim; i++){
+                blocoComandosFor.forEach((cmd) -> cmd.run());
+                System.out.println("teste to");
+                iterador.setResultado(iterador.getResultado()+1);
             }
-        }else if(tipo == "downto"){
-            for(int i = inicio;i>fim; i--){
-                for(Comando cmd: comandos){
-                    cmd.run();
-                }
+        }else if(tipo.equals("downto")){
+            for(int i = ((Double)iterador.ResolveExpressao()).intValue();i>fim; i--){
+                blocoComandosFor.forEach( (cmd) -> cmd.run() );
+                System.out.println("teste downto");
+                iterador.setResultado(iterador.getResultado()-1);
             }
         }
     }

@@ -5,6 +5,7 @@
  */
 package padrao;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,10 +44,8 @@ public class ComandoWhileTest {
     @Test
     public void testExecuta() {
         System.out.println("run/ComandoWhile");
-        ComandoWhile instance = new ComandoWhile();
+        ComandoWhile instance = new ComandoWhile(new ExpressaoLogica( true, "and", true), new ArrayList<Comando>());
         instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
