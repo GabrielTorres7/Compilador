@@ -16,12 +16,12 @@ public class ExpressaoLogica implements Expressao{
     private String operando;
     private Boolean resultado; 
     
-    ExpressaoLogica(Boolean operador1, String operando, Boolean operador2){
+    public ExpressaoLogica(Boolean operador1, String operando, Boolean operador2){
         this.operador1 = operador1;
         this.operador2 = operador2;
         this.operando = operando;
     }
-    ExpressaoLogica(Boolean operador1, String operando){
+    public ExpressaoLogica(Boolean operador1, String operando){
         this.operador1 = operador1;
         this.operando = operando;
     }
@@ -56,6 +56,17 @@ public class ExpressaoLogica implements Expressao{
 
     public void setResultado(Boolean resultado) {
         this.resultado = resultado;
+    }
+    
+    public Object ResolveExpressao() {
+        
+        if(operando.equals("and")){
+            this.resultado = this.operador1 && this.operador2;
+        }
+        if(operando.equals("or")){
+            this.resultado = this.operador1 || this.operador2;
+        }
+        return this.resultado;
     }
 
     @Override

@@ -11,18 +11,18 @@ package padrao;
  */
 public class Variavel {
     
-    private Integer valor;
+    private Expressao expressao;
 
     public Variavel(){
         
     }
     
-    public Integer getValor() {
-        return valor;
+    public Expressao getExpressao() {
+        return expressao;
     }
 
-    public void setValor(Integer valor) {
-        this.valor = valor;
+    public void setExpressao(Expressao expressao) {
+        this.expressao = expressao;
     }
     
  

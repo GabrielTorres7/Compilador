@@ -5,6 +5,7 @@
  */
 package padrao;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,8 +44,15 @@ public class ComandoForTest {
     @Test
     public void testExecuta() {
         System.out.println("run/ComandoFor");
-        ComandoFor instance = new ComandoFor(new Variavel(), "", new Expressao(), "");
+        Variavel var = new Variavel();
+        var.setExpressao(new ExpressaoAritmetica(0.0 , "+", 0.0));
+        ComandoFor instance = new ComandoFor(var, "to", new ExpressaoAritmetica(0.0 , "+", 10.0), new ArrayList<>());
+        var.setExpressao(new ExpressaoAritmetica(0.0 , "+", 20.0));
+        ComandoFor instance2 = new ComandoFor(var, "downto", new ExpressaoAritmetica(0.0 , "+", 10.0), new ArrayList<>());
+        System.out.println("Teste 1");
         instance.run();
+        System.out.println("Teste 2");
+        instance2.run();
     }
     
 }

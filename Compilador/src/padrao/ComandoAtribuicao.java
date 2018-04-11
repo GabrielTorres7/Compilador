@@ -10,10 +10,17 @@ package padrao;
  * @author Arthur
  */
 public class ComandoAtribuicao implements Comando{
-
+    
+    private Variavel var;
+    private Expressao expressao;
+    
+    public ComandoAtribuicao(Variavel var, Expressao exp){
+        this.expressao = exp;
+    }
+    
     @Override
     public void run() {
-        
+        var.setExpressao(expressao);
     }
     
 }

@@ -16,12 +16,12 @@ public class ExpressaoAritmetica implements Expressao{
     private String operando;
     private Double resultado; 
     
-    ExpressaoAritmetica(Double operador1, String operando, Double operador2){
+    public ExpressaoAritmetica(Double operador1, String operando, Double operador2){
         this.operador1 = operador1;
         this.operador2 = operador2;
         this.operando = operando;
     }
-    ExpressaoAritmetica(Double operador1, String operando){
+    public ExpressaoAritmetica(Double operador1, String operando){
         this.operador1 = operador1;
         this.operando = operando;
     }
@@ -58,6 +58,25 @@ public class ExpressaoAritmetica implements Expressao{
         this.resultado = resultado;
     }
     
+    @Override
+    public Object ResolveExpressao() {
+        if(operando.equals("+")){
+            this.resultado = this.operador1 + this.operador2;
+        }
+        if(operando.equals("-")){
+            this.resultado = this.operador1 - this.operador2;
+        }
+        if(operando.equals("*")){
+            this.resultado = this.operador1 * this.operador2;
+        }
+        if(operando.equals("/")){
+            this.resultado = this.operador1 / this.operador2;
+        }
+        if(operando.equals("mod")){
+            this.resultado = this.operador1 % this.operador2;
+        }
+        return this.resultado;
+    }
 
     @Override
     public Object ResolveExpressao(Object operador1, String Operando, Object operador2) {
