@@ -43,6 +43,7 @@ public class ComandoForTest {
      */
     @Test
     public void testExecuta() {
+<<<<<<< HEAD
         System.out.println("run/ComandoFor");
         Variavel var = new Variavel();
         var.setExpressao(new ExpressaoAritmetica(0.0 , "+", 0.0));
@@ -53,6 +54,11 @@ public class ComandoForTest {
         instance.run();
         System.out.println("Teste 2");
         instance2.run();
+=======
+      //  System.out.println("run/ComandoFor");
+        //ComandoFor instance = new ComandoFor(new Variavel(), "", new Expressao(), "");
+        //instance.run();
+>>>>>>> 7643812f9ef0aaa9bcb2946a24ee77afed6763b8
     }
     
 }
