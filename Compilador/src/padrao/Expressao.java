@@ -7,8 +7,11 @@ package padrao;
 
 /**
  *
- * @author Arthur
+ * @author Allan
  */
-public class Expressao {
-    
+public interface Expressao<T>{
+
+    public T ResolveExpressao(T operador1, String operando,T operador2);
+    public T ResolveExpressao(T operador1, String operando);
+            
 }
