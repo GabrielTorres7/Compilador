@@ -11,4 +11,20 @@ package padrao;
  */
 public class Variavel {
     
+    private Integer valor;
+
+    public Variavel(){
+        
+    }
+    
+    public Integer getValor() {
+        return valor;
+    }
+
+    public void setValor(Integer valor) {
+        this.valor = valor;
+    }
+    
+ 
+    
 }

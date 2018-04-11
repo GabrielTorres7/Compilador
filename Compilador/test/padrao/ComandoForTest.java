@@ -45,8 +45,6 @@ public class ComandoForTest {
         System.out.println("run/ComandoFor");
         ComandoFor instance = new ComandoFor(new Variavel(), "", new Expressao(), "");
         instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

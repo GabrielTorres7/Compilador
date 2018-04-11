@@ -9,6 +9,17 @@ package padrao;
  *
  * @author Arthur
  */
-public class ComandoPrint {
+public class ComandoPrint implements Comando{
+    
+    private String mensagem;
+    
+    public ComandoPrint(String mensagem){
+        this.mensagem = mensagem;
+    }
+
+    @Override
+    public void run() {
+        System.out.print(mensagem);  
+    }
     
 }
