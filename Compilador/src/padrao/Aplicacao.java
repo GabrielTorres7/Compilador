@@ -39,6 +39,5 @@ public class Aplicacao {
             System.err.printf("Erro na abertura do arquivo: %s.\n",
                     e.getMessage());
         }
-
     }
 }
