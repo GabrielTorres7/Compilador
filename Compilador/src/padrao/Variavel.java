@@ -12,16 +12,13 @@ package padrao;
 public class Variavel {
     
     private Expressao expressao;
-    private int valor;
-    private String nome;
 
     public Variavel(){
         
     }
     
-    public Variavel(int valor, String nome){
-        this.valor = valor;
-        this.nome = nome;        
+    public Variavel(Expressao expressao, String nome){
+        this.expressao = expressao;        
     }
     
     public Expressao getExpressao() {
@@ -31,35 +28,5 @@ public class Variavel {
     public void setExpressao(Expressao expressao) {
         this.expressao = expressao;
     }
-
-    /**
-     * @return the valor
-     */
-    public int getValor() {
-        return valor;
-    }
-
-    /**
-     * @param valor the valor to set
-     */
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
-
-    /**
-     * @return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
- 
     
 }

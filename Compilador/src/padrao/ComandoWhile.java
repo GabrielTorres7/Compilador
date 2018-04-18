@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class ComandoWhile implements Comando{
     
-    private Expressao expressao;
+    private ExpressaoLogica expressao;
     private ArrayList<Comando> blocoComandosWhile;
     
-    public ComandoWhile(Expressao expressao, ArrayList<Comando> comandos){
+    public ComandoWhile(ExpressaoLogica expressao, ArrayList<Comando> comandos){
         this.expressao = expressao;
         this.blocoComandosWhile = comandos;
     }
@@ -25,8 +25,6 @@ public class ComandoWhile implements Comando{
     public void run() {
         while((boolean)expressao.ResolveExpressao()){
             blocoComandosWhile.forEach( (cmd) -> cmd.run() );
-            System.out.println("While");
-            ((ExpressaoLogica)expressao).setOperador1(false);
         }
     }
     

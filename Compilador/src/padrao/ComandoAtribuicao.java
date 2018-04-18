@@ -5,22 +5,25 @@
  */
 package padrao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Arthur
  */
 public class ComandoAtribuicao implements Comando{
     
-    private Variavel var;
+    private String nomeVariavel;
     private Expressao expressao;
     
-    public ComandoAtribuicao(Variavel var, Expressao exp){
+    public ComandoAtribuicao(String nome, Expressao exp){
+        this.nomeVariavel = nome;
         this.expressao = exp;
     }
-    
+
     @Override
     public void run() {
-        var.setExpressao(expressao);
+       Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
     }
     
 }

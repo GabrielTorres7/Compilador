@@ -15,22 +15,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Aplicacao {
 
+    /**
+     *
+     */
+    public static Map<String, Variavel> variaveis = new HashMap<>();
+    
     public static void main(String[] args) {
         String programa = null;
         
-        int a=0; 
-            
-            
+        int a=0;  
         int n=0;
         
-        
         ArrayList<String> palavras_reservadas = new ArrayList();
-        
-        
-        
         ArrayList<String> comandos = new ArrayList();        
         
         palavras_reservadas.add("print");

@@ -18,7 +18,7 @@ public class ComandoFor implements Comando{
     private Integer fim;
     private ArrayList<Comando> blocoComandosFor;
     
-    public ComandoFor(Variavel var, String tipo, Expressao expressao, ArrayList<Comando> comandos){
+    public ComandoFor(Variavel var, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
         this.iterador = (ExpressaoAritmetica)var.getExpressao();
         this.tipo = tipo;
         this.fim = ((Double)expressao.ResolveExpressao()).intValue();
@@ -28,16 +28,12 @@ public class ComandoFor implements Comando{
     @Override
     public void run() {
         if(tipo.equals("to")){
-            for(int i = ((Double)iterador.ResolveExpressao()).intValue();i<fim; i++){
+            for(((Double)iterador.ResolveExpressao()).intValue(); iterador.getResultado()<fim; iterador.setResultado(iterador.getResultado()+1)){
                 blocoComandosFor.forEach((cmd) -> cmd.run());
-                System.out.println("teste to");
-                iterador.setResultado(iterador.getResultado()+1);
             }
         }else if(tipo.equals("downto")){
-            for(int i = ((Double)iterador.ResolveExpressao()).intValue();i>fim; i--){
+            for(((Double)iterador.ResolveExpressao()).intValue(); iterador.getResultado()<fim; iterador.setResultado(iterador.getResultado()-1)){
                 blocoComandosFor.forEach( (cmd) -> cmd.run() );
-                System.out.println("teste downto");
-                iterador.setResultado(iterador.getResultado()-1);
             }
         }
     }
