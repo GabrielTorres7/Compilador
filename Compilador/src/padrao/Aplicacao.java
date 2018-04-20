@@ -19,20 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Aplicacao {
-
-    /**
-     *
-     */
+    
+    
     public static Map<String, Variavel> variaveis = new HashMap<>();
     
     public static void main(String[] args) {
-        String programa = null;
+        String programa = null;   
         
-        int a=0;  
-        int n=0;
-        
-        ArrayList<String> palavras_reservadas = new ArrayList();
-        ArrayList<String> comandos = new ArrayList();        
+        ArrayList<String> palavras_reservadas = new ArrayList();       
         
         palavras_reservadas.add("print");
         palavras_reservadas.add("println");
@@ -49,45 +43,76 @@ public class Aplicacao {
         palavras_reservadas.add("downto");
         palavras_reservadas.add("endfor");
         palavras_reservadas.add("sqrt");
-
+        palavras_reservadas.add("end");
+        
+        char caractere = '0';
+        String palavraAux = "";
+        String atribuicao = "";
+        String expressao = "";
+        Variavel variavel;
+        int i;
+        
         try {
             InputStream is = new FileInputStream("programa.txt"); //Especificar diretorio do arquivo .tiny a ser lido.
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
-
+            
             String linha = br.readLine(); //primeira linha
-            programa = linha + "\n";
+            programa = linha + " ";
 
             while (linha != null) {
                 linha = br.readLine();
                 if (linha != null) {
-                    programa += linha + "\n";
+                    programa += linha + " ";
                 }
             }
             br.close();
-            
-            String[] partes = programa.split("\\s+");
-           
-            // essa parte divide todos os comandos do programa.txt e coloca na arraylist comandos pode testar alterando o programa.txt, 
-            // se vc executar o projeto desse jeito vai imprimir exatamente os comandos do programa.txt lido
-            for(int i=0; i < partes.length; i++){
-                 for(a = palavras_reservadas.size(); n<a; n++){                      
-                    if(partes[i].equals(palavras_reservadas.get(n))){                        
-                    comandos.add(partes[i]);                        
-                    }
-                }
-            n=0;
-            }            
-            n = 0;
-            for(a = comandos.size(); n<a; n++){ 
-               System.out.println(comandos.get(n));                   
-            }             
-            // aqui termina minha linda parte ass: Pedro     
-            
-            
-        } catch (IOException e) {
+            } catch (IOException e) {
             System.err.printf("Erro na abertura do arquivo: %s.\n",
                     e.getMessage());
-        }
+            }
+
+            for(i=0; i<programa.length(); i++){
+                caractere = programa.charAt(i);
+                if(caractere != ' ' && caractere != ':'){
+                    palavraAux += caractere;
+                }else{
+                    if(palavras_reservadas.contains(palavraAux)){
+                        if(palavraAux.equals("end")){
+                            System.out.println("Programa encerrado");
+                            System.exit(0);
+                        }
+                        if(palavraAux.equals("print")){
+                            
+                        }
+                    }
+                    
+                    if(!palavras_reservadas.contains(palavraAux)){
+                        int a = i;
+                        if(caractere == ' '){
+                            
+                        }
+                        if(caractere == ':'){
+                            a++;
+                            atribuicao = Character.toString(caractere)+programa.charAt(a);
+                            if(atribuicao.equals(":=")){
+                                a++;
+                                caractere = programa.charAt(a);
+                                while(caractere != ' ' && caractere != ';'){
+                                    expressao += caractere;
+                                    a++;
+                                    caractere = programa.charAt(a);
+                                }
+                            }else{
+                                //erro
+                            }
+                        }
+                    }
+                    palavraAux += " ";
+                }
+            }
+            System.out.println(palavraAux);
     }
+            
 }
+

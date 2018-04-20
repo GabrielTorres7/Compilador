@@ -1,8 +1,2 @@
-meu endif e Gabriel Torres
-eu torco pro cruzeiro
-e pra um futuro melhor 
-pra nacao
-get
-while
-for
-vai se foder torres
+a:=5
+end
