@@ -13,7 +13,7 @@ public class ComandoPrintln implements Comando{
 
     @Override
     public void run() {
-        System.out.println("");
+        System.out.println();
     }
     
 }

@@ -11,15 +11,15 @@ package padrao;
  */
 public class ComandoPrint implements Comando{
     
-    private String mensagem;
+    private final Expressao mensagem;
     
-    public ComandoPrint(String mensagem){
+    public ComandoPrint(Expressao mensagem){
         this.mensagem = mensagem;
     }
 
     @Override
     public void run() {
-        System.out.print(mensagem);  
+        System.out.print(mensagem.ResolveExpressao());  //Metodo que imprime o valor da mensagem
     }
     
 }
