@@ -27,7 +27,7 @@ public class ComandoIf implements Comando{
     
     @Override
     public void run() {
-        if((Boolean)expressao.ResolveExpressao()){
+        if((Boolean)expressao.resolveExpressao()){
             blocoComandosIf.forEach( (cmd) -> cmd.run());
         }else if(temElse){
             blocoComandosElse.forEach( (cmd) -> cmd.run());

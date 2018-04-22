@@ -23,7 +23,7 @@ public class ComandoWhile implements Comando{
 
     @Override
     public void run() {
-        while((boolean)expressao.ResolveExpressao()){
+        while((boolean)expressao.resolveExpressao()){
             blocoComandosWhile.forEach( (cmd) -> cmd.run() );
         }
     }
