@@ -48,15 +48,15 @@ public class ComandoForTest {
         Aplicacao.variaveis.put("teste", var);
         comandos.add(new ComandoPrint(new ExpressaoAritmetica(0.0 , "+", 1.0)));
         comandos.add(new ComandoPrint(new ExpressaoAritmetica(0.0 , "+", 2.0)));
-        //comandos.add(new ComandoPrintln());
+        comandos.add(new ComandoPrintln());
         
         var.setExpressao(new ExpressaoAritmetica(0.0 , "+", 0.0));
-        ComandoFor instance = new ComandoFor(var, "to", new ExpressaoAritmetica(0.0 , "+", 10.0), comandos);
+        ComandoFor instance = new ComandoFor("teste", "to", new ExpressaoAritmetica(0.0 , "+", 10.0), comandos);
         System.out.println("Teste 1");
         instance.run();
         
         var.setExpressao(new ExpressaoAritmetica(0.0 , "+", 20.0));
-        ComandoFor instance2 = new ComandoFor(var, "downto", new ExpressaoAritmetica(0.0 , "+", 10.0), comandos);
+        ComandoFor instance2 = new ComandoFor("teste", "downto", new ExpressaoAritmetica(0.0 , "+", 10.0), comandos);
         System.out.println("Teste 2");
         instance2.run();
 

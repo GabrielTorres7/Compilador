@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class ComandoIf implements Comando{
 
-    private boolean temElse;
-    private ExpressaoLogica expressao;
-    private ArrayList<Comando> blocoComandosIf;
-    private ArrayList<Comando> blocoComandosElse;
+    private final boolean temElse;
+    private final ExpressaoLogica expressao;
+    private final ArrayList<Comando> blocoComandosIf;
+    private final ArrayList<Comando> blocoComandosElse;
 
     public ComandoIf(ExpressaoLogica expressao, ArrayList<Comando> blocoIf, Boolean temElse, ArrayList<Comando> blocoElse){ 
         this.expressao = expressao;

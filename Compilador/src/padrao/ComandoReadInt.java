@@ -13,16 +13,17 @@ import java.util.Scanner;
  */
 public class ComandoReadInt implements Comando{
     
-    private Variavel variavel;
+    private String nomeVariavel;
     
-    public ComandoReadInt(Variavel var){
-        this.variavel = var;
+    public ComandoReadInt(String nomeVariavel){
+        this.nomeVariavel = nomeVariavel;
     }
     
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
-        variavel.setExpressao(new ExpressaoAritmetica(sc.nextDouble(), "+", 0.0));
+        //Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(sc.nextInt());
+        System.out.println("Tirar do comentario");
     }
     
 }

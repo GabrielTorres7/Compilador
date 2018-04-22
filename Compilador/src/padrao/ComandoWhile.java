@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class ComandoWhile implements Comando{
     
-    private ExpressaoLogica expressao;
-    private ArrayList<Comando> blocoComandosWhile;
+    private final ExpressaoLogica expressao;
+    private final ArrayList<Comando> blocoComandosWhile;
     
     public ComandoWhile(ExpressaoLogica expressao, ArrayList<Comando> comandos){
         this.expressao = expressao;

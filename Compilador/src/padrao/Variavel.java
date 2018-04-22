@@ -12,15 +12,14 @@ package padrao;
 public class Variavel {
     
     private Expressao expressao;
-    private String nome;
-
-    public Variavel(){
-        
-    }
     
     public Variavel(Expressao expressao, String nome){
         this.expressao = expressao;        
-        this.nome = nome;
+        this.colocaNoMap(nome);
+    }
+    
+    private void colocaNoMap(String nome){
+        Aplicacao.variaveis.put(nome, this);
     }
     
     public Expressao getExpressao() {
@@ -32,6 +31,7 @@ public class Variavel {
     }
     
     public Object getValor(){
+        expressao.ResolveExpressao();
         if(expressao instanceof ExpressaoAritmetica){
             expressao.ResolveExpressao();
             return ((ExpressaoAritmetica)expressao).getResultado();
