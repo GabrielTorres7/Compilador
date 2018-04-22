@@ -22,20 +22,20 @@ public class ComandoFor implements Comando{
     public ComandoFor(Variavel iterador, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
         this.iterador = iterador;
         this.tipo = tipo;
-        this.fim = ((Double)expressao.ResolveExpressao()).intValue();
+        this.fim = ((Double)expressao.resolveExpressao()).intValue();
         this.blocoComandosFor = comandos;
     }
 
     @Override
     public void run() {
         if(tipo.equals("to")){
-            for(    ( (Double) iterador.getExpressao().ResolveExpressao() ).intValue();
+            for(    ( (Double) iterador.getExpressao().resolveExpressao() ).intValue();
                     ( (ExpressaoAritmetica) iterador.getExpressao() ).getResultado() < fim;
                     ( (ExpressaoAritmetica) iterador.getExpressao()).setResultado( ( (ExpressaoAritmetica) iterador.getExpressao() ).getResultado()+1)){
                 blocoComandosFor.forEach((cmd) -> cmd.run());
             }
         }else if(tipo.equals("downto")){
-            for(    ( (Double) iterador.getExpressao().ResolveExpressao() ).intValue();
+            for(    ( (Double) iterador.getExpressao().resolveExpressao() ).intValue();
                     ( (ExpressaoAritmetica) iterador.getExpressao() ).getResultado() > fim;
                     ( (ExpressaoAritmetica) iterador.getExpressao()).setResultado( ( (ExpressaoAritmetica) iterador.getExpressao() ).getResultado()-1)){
                 blocoComandosFor.forEach( (cmd) -> cmd.run() );

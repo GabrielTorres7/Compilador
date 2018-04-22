@@ -22,7 +22,7 @@ public class ComandoReadInt implements Comando{
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
-        variavel.setExpressao(new ExpressaoAritmetica(sc.nextDouble(), "+", 0.0));
+       // variavel.setExpressao(new ExpressaoAritmetica(sc.nextDouble(), "+", 0.0));
     }
     
 }

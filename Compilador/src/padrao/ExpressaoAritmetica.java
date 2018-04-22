@@ -9,45 +9,24 @@ package padrao;
  *
  * @author User
  */
-public class ExpressaoAritmetica implements Expressao{
+public class ExpressaoAritmetica implements Expressao {
+    private String expressao;
+    private Double resultado;
     
-    private Double operador1; 
-    private Double operador2;
-    private String operando;
-    private Double resultado; 
+
+    public ExpressaoAritmetica() {
+    }
     
-    public ExpressaoAritmetica(Double operador1, String operando, Double operador2){
-        this.operador1 = operador1;
-        this.operador2 = operador2;
-        this.operando = operando;
+    public ExpressaoAritmetica(String expressao) {
+        this.expressao = expressao;
     }
-    public ExpressaoAritmetica(Double operador1, String operando){
-        this.operador1 = operador1;
-        this.operando = operando;
+  
+    public String getExpressao() {
+        return expressao;
     }
 
-    public Double getOperador1() {
-        return operador1;
-    }
-
-    public void setOperador1(Double operador1) {
-        this.operador1 = operador1;
-    }
-
-    public Double getOperador2() {
-        return operador2;
-    }
-
-    public void setOperador2(Double operador2) {
-        this.operador2 = operador2;
-    }
-
-    public String getOperando() {
-        return operando;
-    }
-
-    public void setOperando(String operando) {
-        this.operando = operando;
+    public void setExpressao(String expressao) {
+        this.expressao = expressao;
     }
 
     public Double getResultado() {
@@ -59,57 +38,180 @@ public class ExpressaoAritmetica implements Expressao{
     }
     
     @Override
-    public Object ResolveExpressao() {
-        if(operando.equals("+")){
-            this.resultado = this.operador1 + this.operador2;
-        }
-        if(operando.equals("-")){
-            this.resultado = this.operador1 - this.operador2;
-        }
-        if(operando.equals("*")){
-            this.resultado = this.operador1 * this.operador2;
-        }
-        if(operando.equals("/")){
-            this.resultado = this.operador1 / this.operador2;
-        }
-        if(operando.equals("mod")){
-            this.resultado = this.operador1 % this.operador2;
-        }
-        return this.resultado;
+    public Object resolveExpressao() {
+       return resolveExpressao(this.expressao);
+    }
+    
+    public void imprime(){
+         System.out.println(resolveExpressao("1+2(3*4)"));
     }
 
     @Override
-    public Object ResolveExpressao(Object operador1, String Operando, Object operador2) {
-        this.operador1 = (Double)operador1;
-        this.operador2 = (Double)operador2;
-        this.operando = operando;
-        
-        if(operando.equals("+")){
-            this.resultado = this.operador1 + this.operador2;
+    public Object resolveExpressao(String expressao) {
+        if (expressao.contains("(")) {
+            String aux;
+            
+            int inicioSubstring = expressao.indexOf("(");
+            int finalSubstring = expressao.lastIndexOf(")");
+            
+            String substring = expressao.substring(inicioSubstring, finalSubstring+1);
+            String subExpressao = substring.substring(1,substring.length()-1);
+   
+            aux = resolveExpressao(subExpressao).toString();
+            
+            expressao = expressao.replace(substring, aux);
         }
-        if(operando.equals("-")){
-            this.resultado = this.operador1 - this.operador2;
-        }
-        if(operando.equals("*")){
-            this.resultado = this.operador1 * this.operador2;
-        }
-        if(operando.equals("/")){
-            this.resultado = this.operador1 / this.operador2;
-        }
-        if(operando.equals("mod")){
-            this.resultado = this.operador1 % this.operador2;
-        }
-        return this.resultado;
-    }
+            if (expressao.contains("sqrt(")) {
+                String aux;
 
-    @Override
-    public Object ResolveExpressao(Object operador1, String operando) {
-        this.operador1 = (Double)operador1;
-        this.operando = operando;
+                int inicioSubstring = expressao.indexOf("sqrt(");
+                int finalSubstring = expressao.lastIndexOf(")");
+
+                String substring = expressao.substring(inicioSubstring, finalSubstring+1);
+                String subExpressao = substring.substring(1,substring.length()-1);
+
+                aux = resolveExpressao(subExpressao).toString();
+                Math.sqrt( Double.parseDouble(aux));
+
+                expressao = expressao.replace(substring, aux);
+            }
         
-        if(operando.equals("sqrt")){
-            this.resultado = Math.sqrt(this.operador1);
-        }
-        return this.resultado;
+        return this.executaOperacoes(expressao);
     }
+    
+    public double executaOperacoes(String expressao) {
+        String aux = null;
+        String numeroAnteriorAoOperador;
+        String numeroPosteriorAoOperador;
+        int inicNumero1=0;
+        int finalNumero2=0;
+        double numero1;
+        double numero2; 
+        
+        while (expressao.contains("^") || expressao.contains("sqrt")) {
+            int posicaoOperandoPotencia = expressao.indexOf("^");
+            int posicaoOperandoRaiz = expressao.indexOf("sqrt");
+            
+            if (posicaoOperandoPotencia < posicaoOperandoRaiz && posicaoOperandoPotencia > 0 || posicaoOperandoRaiz == -1) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoPotencia);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoPotencia);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoPotencia);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoPotencia+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(Math.pow(numero1, numero2));
+                
+                expressao = expressao.replace(expressao.substring((inicNumero1), (finalNumero2)), aux);
+                
+            }else if(posicaoOperandoRaiz>0) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoRaiz);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoRaiz);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoRaiz);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoRaiz+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(numero1 - numero2);
+            }
+            expressao = expressao.replace(expressao.substring((inicNumero1), (finalNumero2)), aux);
+        }
+        
+        while (expressao.contains("*") || expressao.contains("/")) {
+            int posicaoOperandoMultiplica = expressao.indexOf("*");
+            int posicaoOperandoDivide = expressao.indexOf("/");
+            
+            if (posicaoOperandoMultiplica < posicaoOperandoDivide && posicaoOperandoMultiplica > 0 || posicaoOperandoDivide == -1) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoMultiplica);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoMultiplica);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoMultiplica);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoMultiplica+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(numero1 * numero2);
+            }else if(posicaoOperandoDivide>0) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoDivide);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoDivide);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoDivide);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoDivide+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(numero1 / numero2); 
+            }
+            expressao = expressao.replace(expressao.substring((inicNumero1), (finalNumero2)), aux);
+        }
+        
+        while (expressao.contains("+") || expressao.contains("-")) {
+            int posicaoOperandoMais = expressao.indexOf("+");
+            int posicaoOperandoMenos = expressao.indexOf("-");
+            
+            if (posicaoOperandoMais < posicaoOperandoMenos && posicaoOperandoMais > 0 || posicaoOperandoMenos == -1) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoMais);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoMais);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoMais);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoMais+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(numero1 + numero2);
+            }else if(posicaoOperandoMenos>0) {
+                inicNumero1 = inicioPrimeiroNumero(expressao, posicaoOperandoMenos);
+                numeroAnteriorAoOperador = expressao.substring(inicNumero1, posicaoOperandoMenos);
+                numero1 = Double.parseDouble(numeroAnteriorAoOperador);
+                
+                finalNumero2 = finalSegundoNumero(expressao, posicaoOperandoMenos);
+                numeroPosteriorAoOperador = expressao.substring(posicaoOperandoMenos+1, finalNumero2);
+                numero2 = Double.parseDouble(numeroPosteriorAoOperador);
+                
+                aux = Double.toString(numero1 - numero2);
+            }
+            expressao = expressao.replace(expressao.substring((inicNumero1), (finalNumero2)), aux);
+        }
+        resultado = Double.parseDouble(expressao);
+        
+        return resultado;
+    }
+    
+    public int inicioPrimeiroNumero(String expressao, int posicaoOperando) {
+        int inicNumero1 = 0;
+        int i;
+        char operadorAnterior;
+       
+            for (i = posicaoOperando-1; i > 0; i--) {
+                operadorAnterior = expressao.charAt(i);
+                if (operadorAnterior=='^' || operadorAnterior=='*' || operadorAnterior=='/' 
+                        || operadorAnterior=='+' || operadorAnterior=='-' 
+                        || operadorAnterior=='(' || operadorAnterior==')') {
+                    inicNumero1 = i+1;
+                    break;
+                }
+            }
+        return inicNumero1;
+    }
+    
+    public int finalSegundoNumero(String expressao, int posicaoOperando) {
+        int finalNumero2;
+        int i;
+        char operadorPosterior;
+        
+        finalNumero2=expressao.length();
+            for (i = posicaoOperando + 1; i < expressao.length(); i++) {
+                operadorPosterior = expressao.charAt(i);
+                if (operadorPosterior == '^' || operadorPosterior == '/' || operadorPosterior == '*' 
+                        || operadorPosterior == '+' || operadorPosterior == '-' 
+                        || operadorPosterior == '(' || operadorPosterior == ')') {
+                    finalNumero2 = i;
+                    break;
+                }
+            }
+        return finalNumero2;
+    }
+    
 }

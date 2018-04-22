@@ -10,44 +10,22 @@ package padrao;
  * @author User
  */
 public class ExpressaoLogica implements Expressao{
-    
-    private Boolean operador1; 
-    private Boolean operador2;
-    private String operando;
+    private String expressao;
     private Boolean resultado; 
-    
-    public ExpressaoLogica(Boolean operador1, String operando, Boolean operador2){
-        this.operador1 = operador1;
-        this.operador2 = operador2;
-        this.operando = operando;
-    }
-    public ExpressaoLogica(Boolean operador1, String operando){
-        this.operador1 = operador1;
-        this.operando = operando;
+
+    public ExpressaoLogica(String expressao) {
+        this.expressao = expressao;
     }
 
-    public Boolean getOperador1() {
-        return operador1;
+    public ExpressaoLogica() {
     }
 
-    public void setOperador1(Boolean operador1) {
-        this.operador1 = operador1;
+    public String getExpressao() {
+        return expressao;
     }
 
-    public Boolean getOperador2() {
-        return operador2;
-    }
-
-    public void setOperador2(Boolean operador2) {
-        this.operador2 = operador2;
-    }
-
-    public String getOperando() {
-        return operando;
-    }
-
-    public void setOperando(String operando) {
-        this.operando = operando;
+    public void setExpressao(String expressao) {
+        this.expressao = expressao;
     }
 
     public Boolean getResultado() {
@@ -58,41 +36,16 @@ public class ExpressaoLogica implements Expressao{
         this.resultado = resultado;
     }
     
-    public Object ResolveExpressao() {
-        
-        if(operando.equals("and")){
-            this.resultado = this.operador1 && this.operador2;
-        }
-        if(operando.equals("or")){
-            this.resultado = this.operador1 || this.operador2;
-        }
-        return this.resultado;
+    @Override
+    public Object resolveExpressao() {
+       return resolveExpressao(this.expressao);
     }
 
     @Override
-    public Object ResolveExpressao(Object operador1, String Operando, Object operador2) {
-        this.operador1 = (Boolean)operador1;
-        this.operador1 = (Boolean)operador2;
-        this.operando = operando;
-        
-        if(operando.equals("and")){
-            this.resultado = this.operador1 && this.operador2;
-        }
-        if(operando.equals("or")){
-            this.resultado = this.operador1 || this.operador2;
-        }
-        return this.resultado;
+    public Object resolveExpressao(String expressao) {
+        //método que executará qualquer expressão a ser passada, só pode ter and, or e not além dos ().
+        return resultado;
     }
-
-    @Override
-    public Object ResolveExpressao(Object operador1, String operando) {
-        this.operador1 = (Boolean)operador1;
-        this.operando = operando;
-        
-        if(operando.equals("not")){
-            this.resultado = !this.operador1 ;
-        }
-        return this.resultado;
-    }
+    
 
 }

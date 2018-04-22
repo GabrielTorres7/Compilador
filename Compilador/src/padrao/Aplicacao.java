@@ -24,6 +24,8 @@ public class Aplicacao {
     public static Map<String, Variavel> variaveis = new HashMap<>();
     
     public static void main(String[] args) {
+        ExpressaoAritmetica ex = new ExpressaoAritmetica();
+        ex.imprime();
         String programa = null;   
         
         ArrayList<String> palavras_reservadas = new ArrayList();       
@@ -113,6 +115,6 @@ public class Aplicacao {
             }
             System.out.println(palavraAux);
     }
-            
+           
 }
 

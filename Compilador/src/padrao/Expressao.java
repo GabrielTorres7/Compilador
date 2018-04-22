@@ -10,9 +10,8 @@ package padrao;
  * @author Allan
  */
 public interface Expressao<T>{
-
-    public T ResolveExpressao();
-    public T ResolveExpressao(T operador1, String operando,T operador2);
-    public T ResolveExpressao(T operador1, String operando);
+    
+    public T resolveExpressao();
+    public T resolveExpressao(String expressao);
             
 }
