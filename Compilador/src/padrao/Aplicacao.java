@@ -23,9 +23,11 @@ public class Aplicacao {
     
     public static Map<String, Variavel> variaveis = new HashMap<>();
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String programa = null;   
         
+        ArrayList<String> comandos = new ArrayList(); 
+        // antes de vc apagar essa array list torres, deixa de ser burro e olha a documentação dos métodos.otario.
         ArrayList<String> palavras_reservadas = new ArrayList();       
         
         palavras_reservadas.add("print");
@@ -45,6 +47,7 @@ public class Aplicacao {
         palavras_reservadas.add("sqrt");
         palavras_reservadas.add("end");
         
+        String print = "";
         char caractere = '0';
         String palavraAux = "";
         String atribuicao = "";
@@ -82,9 +85,46 @@ public class Aplicacao {
                             System.out.println("Programa encerrado");
                             System.exit(0);
                         }
+                        
+                        // aqui onde as palavras vao ser encontradas e os objetos instanciados
+                        
                         if(palavraAux.equals("print")){
                             
                         }
+                        if(palavraAux.equals("for")){
+                            
+                        }
+                        if(palavraAux.equals("while")){
+                            
+                        }
+                        if(palavraAux.equals("if")){
+                            
+                        }
+                        if(palavraAux.equals("do")){
+                            
+                        }
+                        if(palavraAux.equals("do")){
+                            
+                        }
+                        if(palavraAux.equals("then")){
+                            
+                            caractere = programa.charAt(i+1);
+                            try {
+                               if(caractere != '('){
+                                   throw new ErroSintaxe("( expected after println");                                    
+                                }
+                                while(caractere != ')'){
+                                print += caractere;
+                                }
+                                ComandoPrintln p1 = new ComandoPrintln(print);
+                                p1.run();
+                            }
+                            
+                            catch(ErroSintaxe e){
+                                System.out.println("e");
+                            }                                                                                                                                               
+                        }
+                           
                     }
                     
                     if(!palavras_reservadas.contains(palavraAux)){
