@@ -116,12 +116,12 @@ public class Aplicacao {
                                 while(caractere != ')'){
                                 print += caractere;
                                 }
-                                ComandoPrintln p1 = new ComandoPrintln(print);
-                                p1.run();
+                                /*ComandoPrintln p1 = new ComandoPrintln(print);
+                                p1.run();*/
                             }
                             
                             catch(ErroSintaxe e){
-                                System.out.println("e");
+                                System.out.println(e);
                             }                                                                                                                                               
                         }
                            
