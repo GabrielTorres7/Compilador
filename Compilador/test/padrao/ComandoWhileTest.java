@@ -43,13 +43,13 @@ public class ComandoWhileTest {
      */
     @Test
     public void testExecuta() {
-        ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica(true, "or", false));
-        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica(true, "and", false));
+        ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica("true"));
+        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica("false"));
         ArrayList<Comando> comandos = new ArrayList<>();
         comandos.add(cmdP);
         comandos.add(cmdP2);
         
-        ComandoWhile instance = new ComandoWhile(new ExpressaoLogica( true, "and", true), comandos);
+        ComandoWhile instance = new ComandoWhile(new ExpressaoLogica("true"), comandos);
         instance.run();
     }
     
