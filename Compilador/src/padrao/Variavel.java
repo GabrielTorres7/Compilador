@@ -31,12 +31,12 @@ public class Variavel {
     }
     
     public Object getValor(){
-        expressao.ResolveExpressao();
+        expressao.resolveExpressao();
         if(expressao instanceof ExpressaoAritmetica){
-            expressao.ResolveExpressao();
+            expressao.resolveExpressao();
             return ((ExpressaoAritmetica)expressao).getResultado();
         }else if(expressao instanceof ExpressaoLogica){
-            expressao.ResolveExpressao();
+            expressao.resolveExpressao();
             return ((ExpressaoLogica)expressao).getResultado();
         }
         return null;

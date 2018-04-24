@@ -43,17 +43,17 @@ public class ComandoIfTest {
      */
     @Test
     public void testExecuta() {
-        ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica(true, "or", false));
-        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica(true, "and", false));
+        ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica("true"));
+        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica("false"));
         ArrayList<Comando> cmdif = new ArrayList<>();
         ArrayList<Comando> cmdelse = new ArrayList<>();
         cmdif.add(cmdP);
         cmdelse.add(cmdP2);
 
         System.out.println("run/ComandoIf");
-        ComandoIf instance = new ComandoIf(new ExpressaoLogica(true,"and",true), cmdif, false, cmdif);
-        ComandoIf instance2 = new ComandoIf(new ExpressaoLogica(false,"and", false), cmdif, true, cmdelse);
-        ComandoIf instance3 = new ComandoIf(new ExpressaoLogica(false,"and", false), cmdif, false, cmdelse);
+        ComandoIf instance = new ComandoIf(new ExpressaoLogica("true"), cmdif, false, cmdif);
+        ComandoIf instance2 = new ComandoIf(new ExpressaoLogica("false"), cmdif, true, cmdelse);
+        ComandoIf instance3 = new ComandoIf(new ExpressaoLogica("false"), cmdif, false, cmdelse);
         instance.run();
         System.out.println();
         instance2.run();

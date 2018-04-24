@@ -22,20 +22,20 @@ public class ComandoFor implements Comando{
     public ComandoFor(String nomeVariavel, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
         this.iterador = nomeVariavel;
         this.tipo = tipo;
-        this.fim = ((Double)expressao.ResolveExpressao()).intValue();
+        this.fim = ((Double)expressao.resolveExpressao()).intValue();
         this.blocoComandosFor = comandos;
     }
 
     @Override
     public void run() {
         if(tipo.equals("to")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().ResolveExpressao() ).intValue();
+            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().resolveExpressao() ).intValue();
                     ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado() < fim;
                     ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao()).setResultado( ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado()+1)){
                 blocoComandosFor.forEach((cmd) -> cmd.run());
             }
         }else if(tipo.equals("downto")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().ResolveExpressao() ).intValue();
+            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().resolveExpressao() ).intValue();
                     ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado() > fim;
                     ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao()).setResultado( ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado()-1)){
                 blocoComandosFor.forEach( (cmd) -> cmd.run() );

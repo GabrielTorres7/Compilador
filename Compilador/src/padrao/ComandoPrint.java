@@ -19,7 +19,7 @@ public class ComandoPrint implements Comando{
 
     @Override
     public void run() {
-        System.out.print(mensagem.ResolveExpressao());  //Metodo que imprime o valor da mensagem
+        System.out.print(mensagem.resolveExpressao());  //Metodo que imprime o valor da mensagem
     }
     
 }
