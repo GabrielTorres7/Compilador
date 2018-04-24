@@ -10,10 +10,11 @@ package KKKKK;
  * @author Arthur
  */
 public class ResolveExpressaoLogica implements ResolveExpressao{
-
+    
     @Override
-    public Object resolveExpressao(String operando1, String operador, String operando2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object resolveExpressao(String expressao) {
+        
+        return null;
     }
     
 }

@@ -12,6 +12,6 @@ package KKKKK;
  */
 public interface ResolveExpressao<T> {
     
-    public T resolveExpressao(String operando1, String operador, String operando2);
+    public T resolveExpressao(String expressao);
     
 }

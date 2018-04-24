@@ -9,8 +9,8 @@ import java.lang.Math;
  */
 public class AnalisaExpressao {
         
-    private String expressao= "";
-    private String expressaoFinal = "";
+    private String expressao;
+    private String expressaoFinal;
     private ArrayList<String> letras = new ArrayList();
     private ArrayList <String>numeros = new ArrayList();
 
