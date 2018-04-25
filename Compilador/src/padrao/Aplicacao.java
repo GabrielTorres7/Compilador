@@ -44,6 +44,7 @@ public class Aplicacao {
         palavras_reservadas.add("endfor");
         palavras_reservadas.add("sqrt");
         palavras_reservadas.add("end");
+        palavras_reservadas.add(":=");
 
         char caractere = '0';
         char caractereAux = '0';
@@ -54,7 +55,9 @@ public class Aplicacao {
         int saldoParenteses = 0;
         Variavel variavel;
         ComandoPrint print;
-        int i;
+        ComandoPrintln println;
+        ComandoReadInt readInt;
+        int i, a, inicioComando = 0;
 
         try {
             InputStream is = new FileInputStream("programa.txt"); //Especificar diretorio do arquivo .tiny a ser lido.
@@ -82,24 +85,44 @@ public class Aplicacao {
                 palavraAux += caractere;
             } else {
                 if (palavras_reservadas.contains(palavraAux)) {
+                    expressao = "";
                     if (palavraAux.equals("end")) {
-                        //for(Comando comando : comandos) {
-                        //  comando.run();
-                        //}
-                        System.out.println("Programa encerrado");
+                        for(Comando comando : comandos) {
+                          comando.run();
+                        }
+                        System.out.println("\nPrograma encerrado");
                         System.exit(0);
                     }
 
                     if (palavraAux.equals("print")) {
+                        a = i;
+                        if(caractere == ' '){
+                            while(caractere == ' '){
+                            a++;
+                            caractere = programa.charAt(a);
+                            }
+                        }
                         if (caractere == '(') {
                             saldoParenteses++;
-                            int a = i;
                             a++;
                             caractereAux = programa.charAt(a);
-                            while (caractereAux != ')' && saldoParenteses != 0) {
+                            if(caractereAux == ' '){
+                                while(caractereAux == ' '){
+                                    a++;
+                                    caractereAux = programa.charAt(a);
+                                }
+                            }
+                            while (caractereAux != ')' || saldoParenteses == 0) {
                                 expressao += caractereAux;
                                 a++;
                                 caractereAux = programa.charAt(a);
+                                
+                                if(caractereAux == ' '){
+                                    while(caractereAux == ' '){
+                                        a++;
+                                        caractereAux = programa.charAt(a);
+                                    }
+                                }
                                 if (caractereAux == '(') {
                                     saldoParenteses++;
                                 } else if (caractereAux == ')') {
@@ -111,8 +134,45 @@ public class Aplicacao {
                         comandos.add(print);
                     }
 
-                    if (palavraAux.equals("for")) {
-
+                    if (palavraAux.equals("readint")) {
+                        a = i;
+                        if(caractere == ' '){
+                            while(caractere == ' '){
+                            a++;
+                            caractere = programa.charAt(a);
+                            }
+                        }
+                        if (caractere == '(') {
+                            a++;
+                            caractereAux = programa.charAt(a);
+                            if(caractereAux == ' '){
+                                while(caractereAux == ' '){
+                                    a++;
+                                    caractereAux = programa.charAt(a);
+                                }
+                            }
+                            while (caractereAux != ')') {
+                                expressao += caractereAux;
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                
+                                if(caractereAux == ' '){
+                                    while(caractereAux == ' '){
+                                        a++;
+                                        caractereAux = programa.charAt(a);
+                                    }
+                                }
+                            }
+                        }
+                        if(variaveis.containsKey(expressao)){
+                            readInt = new ComandoReadInt(expressao);
+                            comandos.add(readInt);
+                        }else{
+                            //Erro: variavel nao existe.
+                        }
+                        if(expressao.contains(" ")){
+                            //Erro: conteudo do readInt deve ser uma variavel.
+                        }
                     }
                     if (palavraAux.equals("while")) {
 
@@ -120,8 +180,9 @@ public class Aplicacao {
                     if (palavraAux.equals("if")) {
 
                     }
-                    if (palavraAux.equals("do")) {
-
+                    if (palavraAux.equals("println")) {
+                        println = new ComandoPrintln();
+                        comandos.add(println);
                     }
                     if (palavraAux.equals("do")) {
 
@@ -133,8 +194,9 @@ public class Aplicacao {
                 }
 
                 if (!palavras_reservadas.contains(palavraAux)) {
-                    int a = i;
+                    a = i;
                     String palavraAuxComando = "";
+                    expressao = "";
 
                     if (caractere == ' ') {
                         while(caractere == ' '){
@@ -155,33 +217,68 @@ public class Aplicacao {
                                 }
                             } 
                             while (!palavras_reservadas.contains(palavraAuxComando)) {
-                                if (caractere == ' ') {
+                                if (caractere == ' ' || caractere == ':') {
                                     while(caractere == ' '){
                                         a++;
                                         caractere = programa.charAt(a);
+                                        
                                     }
                                     palavraAuxComando = "";
-                                } 
+                                    inicioComando = a-1;
+                                }
                                 palavraAuxComando += caractere;
                                 expressao += caractere;
                                 a++;
                                 caractere = programa.charAt(a);
                             }
+                            if(palavraAuxComando.equals(":=")){
+                                    String palavraAuxComando2 = "";
+                                    a = a-3;
+                                    caractere = programa.charAt(a);
+                                    if (caractere == ' ') {
+                                        while(caractere == ' '){
+                                            a--;
+                                            caractere = programa.charAt(a);
+                                        }
+                                    }
+                                    while(caractere != ' '){
+                                        a--;
+                                        caractere = programa.charAt(a);
+                                        inicioComando = a;
+                                    }
+                                    a = inicioComando+1;
+                                    caractere = programa.charAt(a);
+                                    while(caractere != ':'){
+                                        palavraAuxComando2 += caractere;
+                                        a++;
+                                        caractere = programa.charAt(a);
+                                        if(caractere == ' '){
+                                            while(caractere == ' '){
+                                                a++;
+                                                caractere = programa.charAt(a);
+                                            }
+                                        }
+                                    }
+                                    palavraAuxComando = palavraAuxComando2 + palavraAuxComando;
+                            }
                             int posicaoComandoTerminoExpressaoAtribuicao = expressao.indexOf(palavraAuxComando);
                             subExpressaoAtribuicao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
-                            System.out.println(subExpressaoAtribuicao);
                             
-                            variavel = new Variavel(new ExpressaoAritmetica(subExpressaoAtribuicao), palavraAux);
-                            i = a; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
+                            if(!variaveis.containsKey(palavraAux)){
+                                variavel = new Variavel(new ExpressaoAritmetica(subExpressaoAtribuicao), palavraAux);
+                            }else if(variaveis.containsKey(palavraAux)){
+                                variaveis.remove(palavraAux);
+                                variavel = new Variavel(new ExpressaoAritmetica(subExpressaoAtribuicao), palavraAux);
+                            }
+                            i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
                         } else {
-                            //erro
+                            //Erro: caractere(s) perdido(s) no programa!
                         }
-                    }
+                    }                    
                 }
                 palavraAux = "";
             }
         }
-        System.out.println(palavraAux);
     }
 
 }
