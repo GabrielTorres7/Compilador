@@ -85,9 +85,6 @@ public class Aplicacao {
                             System.out.println("Programa encerrado");
                             System.exit(0);
                         }
-                        
-                        // aqui onde as palavras vao ser encontradas e os objetos instanciados
-                        
                         if(palavraAux.equals("print")){
                             
                         }
@@ -138,17 +135,22 @@ public class Aplicacao {
                             if(atribuicao.equals(":=")){
                                 a++;
                                 caractere = programa.charAt(a);
-                                while(caractere != ' ' && caractere != ';'){
-                                    expressao += caractere;
-                                    a++;
-                                    caractere = programa.charAt(a);
+                                if(caractere == ' '){
+                                    
+                                }else{
+                                    while(caractere != ' '){
+                                        expressao += caractere;
+                                        a++;
+                                        caractere = programa.charAt(a);
+                                    }
                                 }
+                                variavel = new Variavel(new ExpressaoAritmetica(expressao), palavraAux);
                             }else{
                                 //erro
                             }
                         }
                     }
-                    palavraAux += " ";
+                    palavraAux = "";
                 }
             }
             System.out.println(palavraAux);
