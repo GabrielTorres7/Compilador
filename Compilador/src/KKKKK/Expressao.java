@@ -8,9 +8,8 @@ package KKKKK;
 /**
  *
  * @author Arthur
- * @param <T>
  */
-public abstract class Expressao<T> {
+public abstract class Expressao {
     
     protected ResolveExpressao resolve;
     private String expressao;
@@ -20,7 +19,9 @@ public abstract class Expressao<T> {
         this.expressao = expressao;
     }
     
-    public abstract T getResultado();
+    public Object getResultado(){
+        return this.resolve.resolveExpressao(expressao);
+    }
 
     public String getExpressao() {
         return expressao;

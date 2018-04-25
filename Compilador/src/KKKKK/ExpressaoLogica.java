@@ -14,10 +14,5 @@ public class ExpressaoLogica extends Expressao{
     public ExpressaoLogica(String expressao) {
         super(new ResolveExpressaoLogica(), expressao);
     }
-
-    @Override
-    public Object getResultado() {
-        return ((Double)resolve.resolveExpressao(""));
-    }
     
 }
