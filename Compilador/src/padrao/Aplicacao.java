@@ -9,7 +9,6 @@ package padrao;
  *
  * @author Gabriel
  */
-import KKKKK.ResolveExpressaoAritmetica;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -87,15 +86,17 @@ public class Aplicacao {
             } else {
                 if (palavras_reservadas.contains(palavraAux)) {
                     expressao = "";
+                    
                     if (palavraAux.equals("end")) {
                         for(Comando comando : comandos) {
                           comando.run();
                         }
-                        System.out.println("\nPrograma encerrado");
+                        System.out.println("Programa encerrado");
                         System.exit(0);
                     }
 
                     if (palavraAux.equals("print")) {
+                        saldoParenteses=0;
                         a = i;
                         if(caractere == ' '){
                             while(caractere == ' '){
@@ -107,32 +108,30 @@ public class Aplicacao {
                             saldoParenteses++;
                             a++;
                             caractereAux = programa.charAt(a);
-                            if(caractereAux == ' '){
-                                while(caractereAux == ' '){
-                                    a++;
-                                    caractereAux = programa.charAt(a);
-                                }
-                            }
-                            while (caractereAux != ')' || saldoParenteses == 0) {
+                            
+                            do{
                                 expressao += caractereAux;
                                 a++;
                                 caractereAux = programa.charAt(a);
-                                
-                                if(caractereAux == ' '){
-                                    while(caractereAux == ' '){
-                                        a++;
-                                        caractereAux = programa.charAt(a);
-                                    }
-                                }
                                 if (caractereAux == '(') {
                                     saldoParenteses++;
-                                } else if (caractereAux == ')') {
+                                }else if (caractereAux == ')') {
                                     saldoParenteses--;
-                                }
+                                }   
+                            }while (caractereAux != ')' || saldoParenteses != 0); 
+                        }
+                        a++;
+                        caractereAux = programa.charAt(a);
+                        if(caractereAux == ' '){
+                            while(caractereAux == ' '){
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                inicioComando = a-1;
                             }
                         }
                         print = new ComandoPrint(new ExpressaoAritmetica(expressao));
                         comandos.add(print);
+                        i = inicioComando;
                     }
 
                     if (palavraAux.equals("readint")) {
@@ -165,9 +164,19 @@ public class Aplicacao {
                                 }
                             }
                         }
+                        a++;
+                        caractereAux = programa.charAt(a);
+                        if(caractereAux == ' '){
+                            while(caractereAux == ' '){
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                inicioComando = a-1;
+                            }
+                        }
                         if(variaveis.containsKey(expressao)){
                             readInt = new ComandoReadInt(expressao);
                             comandos.add(readInt);
+                            i = inicioComando;
                         }else{
                             //Erro: variavel nao existe.
                         }
@@ -184,6 +193,16 @@ public class Aplicacao {
                     if (palavraAux.equals("println")) {
                         println = new ComandoPrintln();
                         comandos.add(println);
+                        a = i;
+                        caractere = programa.charAt(a);
+                        if(caractere == ' '){
+                             while(caractere == ' '){
+                                a++;
+                                caractere = programa.charAt(a);
+                                inicioComando = a-1;
+                            }
+                        }
+                        i = inicioComando;
                     }
                     if (palavraAux.equals("do")) {
 
