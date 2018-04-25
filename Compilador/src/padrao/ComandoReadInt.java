@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class ComandoReadInt implements Comando{
     
-    private String nomeVariavel;
+    private final String nomeVariavel;
     
     public ComandoReadInt(String nomeVariavel){
         this.nomeVariavel = nomeVariavel;
@@ -22,8 +22,7 @@ public class ComandoReadInt implements Comando{
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
-        //Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(sc.nextInt());
-        System.out.println("Tirar do comentario");
+        Aplicacao.variaveis.get(this.nomeVariavel).setExpressao( new ExpressaoAritmetica( ( (Integer)sc.nextInt()).toString() ) );
     }
     
 }

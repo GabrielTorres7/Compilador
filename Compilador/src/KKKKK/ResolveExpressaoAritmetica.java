@@ -8,7 +8,6 @@ package KKKKK;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import padrao.ErroSintaxe;
 
 /**
  *
@@ -40,23 +39,44 @@ public class ResolveExpressaoAritmetica implements ResolveExpressao{
         
         for(String operador: OPERADORES){
             while(expressao.contains(operador)){
-                int inicioOperando1 = this.getInicioOperando1(expressao, expressao.indexOf(operador));
-                int finalOperando2 = this.getFinalOperando2(expressao, expressao.indexOf(operador));
-                Double operando1 = Double.parseDouble(expressao.substring(inicioOperando1, expressao.indexOf(operador)));
-                Double operando2 = Double.parseDouble(expressao.substring(expressao.indexOf(operador), finalOperando2));
-                Double resultado = this.conta(operando1, operador, operando2);
-                expressao = expressao.replace( expressao.substring( inicioOperando1, finalOperando2), resultado.toString() );
+                int posicaoOperador, inicioOperando1, finalOperando1, inicioOperando2, finalOperando2;
+                double operando1 = 0, operando2 = 0;
+                String conta;
                 
+                posicaoOperador = expressao.indexOf(operador);
+                
+                if(operador.equals("sqrt")){
+                    inicioOperando1 = expressao.indexOf(operador);
+                    finalOperando1 = posicaoOperador;
+                }else{
+                    inicioOperando1 = this.getInicioOperando1(expressao, posicaoOperador);
+                    finalOperando1 = posicaoOperador;
+                    
+                    operando1 = Double.parseDouble(expressao.substring(inicioOperando1, finalOperando1));
+                }
+                
+                if(operador.equals("sqrt") || operador.equals("mod") || operador.equals("div")){
+                    inicioOperando2 = posicaoOperador + operador.length();
+                }else{
+                    inicioOperando2 = posicaoOperador + 1;
+                }finalOperando2 = this.getFinalOperando2(expressao, inicioOperando2 - 1);
+                
+                System.out.println(expressao+"Posicao operador: "+posicaoOperador+" I2: "+inicioOperando2+" F2: "+finalOperando2);
+                operando2 = Double.parseDouble(expressao.substring( inicioOperando2 , finalOperando2));
+                    
+                conta= expressao.substring( inicioOperando1, finalOperando2);
+                Double resultado = this.conta(operando1, operador, operando2);
+                expressao = expressao.replace(conta, resultado.toString());
             }
         }
         return Double.parseDouble(expressao);
     }
     
     private int getInicioOperando1(String expressao, int posicaoOperador) {
-        List<Character> numeros = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
+        List<Character> numeros = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
         Character operadorAnterior;
-            for (int i = posicaoOperador -1; i > 0; i--) {
-                operadorAnterior = expressao.charAt(i);
+            for (int i = posicaoOperador; i > 1; i--) {  //5+41+32*31
+                operadorAnterior = expressao.charAt(i - 1);
                 if (!numeros.contains(operadorAnterior)) {
                     return i;
                 }
@@ -65,9 +85,9 @@ public class ResolveExpressaoAritmetica implements ResolveExpressao{
     }
     
     private int getFinalOperando2(String expressao, int posicaoOperador) {
-        List<Character> numeros = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
+        List<Character> numeros = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
         Character operadorPosterior;
-            for (int i = posicaoOperador+1 ; i < expressao.length(); i++) {
+            for (int i = posicaoOperador+1 ; i < (expressao.length()-1); i++) {
                 operadorPosterior = expressao.charAt(i);
                 if (!numeros.contains(operadorPosterior)) {
                     return i;
@@ -81,7 +101,7 @@ public class ResolveExpressaoAritmetica implements ResolveExpressao{
             case "^":
                 return Math.pow(operando1, operando2);
             case "sqrt":
-                return Math.sqrt(operando1);
+                return Math.sqrt(operando2);
             case "*":
                 return operando1*operando2;
             case "/":

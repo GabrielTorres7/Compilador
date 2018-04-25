@@ -9,6 +9,7 @@ package padrao;
  *
  * @author Gabriel
  */
+import KKKKK.ResolveExpressaoAritmetica;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -169,7 +170,7 @@ public class Aplicacao {
                             }
                             int posicaoComandoTerminoExpressaoAtribuicao = expressao.indexOf(palavraAuxComando);
                             subExpressaoAtribuicao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
-                            System.out.println(subExpressaoAtribuicao);
+                            //System.out.println(subExpressaoAtribuicao);
                             
                             variavel = new Variavel(new ExpressaoAritmetica(subExpressaoAtribuicao), palavraAux);
                             i = a; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
@@ -181,7 +182,9 @@ public class Aplicacao {
                 palavraAux = "";
             }
         }
-        System.out.println(palavraAux);
+        ResolveExpressaoAritmetica ab = new ResolveExpressaoAritmetica();
+        System.out.println(ab.resolveExpressao("1/4"));
+        //System.out.println(palavraAux);
     }
 
 }
