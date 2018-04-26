@@ -8,10 +8,9 @@ package KKKKK;
 /**
  *
  * @author Arthur
- * @param <T>
  */
-public interface ResolveExpressao<T> {
+public interface ResolveExpressao {
     
-    public T resolveExpressao(String expressao);
+    public Object resolveExpressao(String expressao);
     
 }

@@ -21,7 +21,6 @@ public class ResolveExpressaoAritmetica implements ResolveExpressao{
     public Object resolveExpressao(String expressao) {
         String aux = this.executaParenteses(expressao);
         return this.executaOperacoes(aux);
-        
     }
     
     private String executaParenteses(String expressao){

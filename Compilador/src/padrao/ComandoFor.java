@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package padrao;
-
+import KKKKK.*;
 import java.util.ArrayList;
-import static sun.security.krb5.Confounder.intValue;
 
 /**
  *
@@ -22,22 +21,22 @@ public class ComandoFor implements Comando{
     public ComandoFor(String nomeVariavel, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
         this.iterador = nomeVariavel;
         this.tipo = tipo;
-        this.fim = ((Double)expressao.resolveExpressao()).intValue();
+        this.fim = ((Double)expressao.getResultado()).intValue();
         this.blocoComandosFor = comandos;
     }
 
     @Override
     public void run() {
         if(tipo.equals("to")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().resolveExpressao() ).intValue();
-                    ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado() < fim;
-                    ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao()).setResultado( ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado()+1)){
+            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue();
+                    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue() < fim;
+                    Aplicacao.variaveis.get(iterador).getExpressao().setExpressao( ((Double)((Double)Aplicacao.variaveis.get(iterador).getExpressao().getResultado() + 1.0)).toString() )){
                 blocoComandosFor.forEach((cmd) -> cmd.run());
             }
         }else if(tipo.equals("downto")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().resolveExpressao() ).intValue();
-                    ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado() > fim;
-                    ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao()).setResultado( ( (ExpressaoAritmetica) Aplicacao.variaveis.get(iterador).getExpressao() ).getResultado()-1)){
+            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue();
+                    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue() > fim;
+                    Aplicacao.variaveis.get(iterador).getExpressao().setExpressao( ((Double)((Double)Aplicacao.variaveis.get(iterador).getExpressao().getResultado() - 1.0)).toString() )){
                 blocoComandosFor.forEach( (cmd) -> cmd.run() );
             }
         }
