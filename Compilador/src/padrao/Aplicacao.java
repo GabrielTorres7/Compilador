@@ -106,27 +106,38 @@ public class Aplicacao {
                             }
                         }
                         if (caractere == '(') {
-                            saldoParenteses++;
                             a++;
-                            caractereAux = programa.charAt(a);
+                            caractere = programa.charAt(a);
+                            if(caractere == ' '){
+                            while(caractere == ' '){
+                                a++;
+                                caractere = programa.charAt(a);
+                                }
+                            }
                             
                             do{
-                                expressao += caractereAux;
-                                a++;
-                                caractereAux = programa.charAt(a);
-                                if (caractereAux == '(') {
+                                expressao += caractere;
+                                if (caractere == '(') {
                                     saldoParenteses++;
-                                }else if (caractereAux == ')') {
+                                }else if (caractere == ')') {
                                     saldoParenteses--;
-                                }   
-                            }while (caractereAux != ')' || saldoParenteses != 0); 
+                                }
+                                a++;
+                                caractere = programa.charAt(a);
+                                if(caractere == ' '){
+                                    while(caractere == ' '){
+                                        a++;
+                                        caractere = programa.charAt(a);
+                                    }
+                                }
+                            }while (!(caractere == ')' && saldoParenteses == 0)); 
                         }
                         a++;
-                        caractereAux = programa.charAt(a);
-                        if(caractereAux == ' '){
-                            while(caractereAux == ' '){
+                        caractere = programa.charAt(a);
+                        if(caractere == ' '){
+                            while(caractere == ' '){
                                 a++;
-                                caractereAux = programa.charAt(a);
+                                caractere = programa.charAt(a);
                                 inicioComando = a-1;
                             }
                         }
