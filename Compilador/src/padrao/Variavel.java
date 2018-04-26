@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package padrao;
-
+import KKKKK.*;
 /**
  *
  * @author Arthur
@@ -31,15 +31,8 @@ public class Variavel {
     }
     
     public Object getValor(){
-        expressao.resolveExpressao();
-        if(expressao instanceof ExpressaoAritmetica){
-            expressao.resolveExpressao();
-            return ((ExpressaoAritmetica)expressao).getResultado();
-        }else if(expressao instanceof ExpressaoLogica){
-            expressao.resolveExpressao();
-            return ((ExpressaoLogica)expressao).getResultado();
-        }
-        return null;
+        
+        return expressao.getResultado();
     }
     
 }

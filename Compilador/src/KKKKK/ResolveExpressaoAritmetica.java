@@ -60,7 +60,6 @@ public class ResolveExpressaoAritmetica implements ResolveExpressao{
                     inicioOperando2 = posicaoOperador + 1;
                 }finalOperando2 = this.getFinalOperando2(expressao, inicioOperando2 - 1);
                 
-                System.out.println(expressao+"Posicao operador: "+posicaoOperador+" I2: "+inicioOperando2+" F2: "+finalOperando2);
                 operando2 = Double.parseDouble(expressao.substring( inicioOperando2 , finalOperando2));
                     
                 conta= expressao.substring( inicioOperando1, finalOperando2);

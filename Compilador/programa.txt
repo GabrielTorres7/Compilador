@@ -1,6 +1,6 @@
-a :=   5 +  2        
-  readint  (  a  )
- print((5+4)*3) 
+a :=   5 +  2
+b:=7
+ print(a+b) 
   println
 b:=7
 print(55)

@@ -5,6 +5,7 @@
  */
 package padrao;
 
+import KKKKK.*;
 /**
  *
  * @author Arthur
@@ -19,7 +20,7 @@ public class ComandoPrint implements Comando{
 
     @Override
     public void run() {
-        System.out.print(mensagem.resolveExpressao());  //Metodo que imprime o valor da mensagem
+        System.out.print(mensagem.getResultado());  //Metodo que imprime o valor da mensagem
     }
     
 }

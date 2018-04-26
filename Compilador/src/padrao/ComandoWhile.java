@@ -6,7 +6,7 @@
 package padrao;
 
 import java.util.ArrayList;
-
+import KKKKK.*;
 /**
  *
  * @author Arthur
@@ -23,7 +23,7 @@ public class ComandoWhile implements Comando{
 
     @Override
     public void run() {
-        while((boolean)expressao.resolveExpressao()){
+        while((boolean)expressao.getResultado()){
             blocoComandosWhile.forEach( (cmd) -> cmd.run() );
         }
     }

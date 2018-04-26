@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package padrao;
-
+import KKKKK.*;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +27,7 @@ public class ComandoIf implements Comando{
     
     @Override
     public void run() {
-        if((Boolean)expressao.resolveExpressao()){
+        if((Boolean)expressao.getResultado()){
             blocoComandosIf.forEach( (cmd) -> cmd.run());
         }else if(temElse){
             blocoComandosElse.forEach( (cmd) -> cmd.run());

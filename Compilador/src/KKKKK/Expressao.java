@@ -20,6 +20,7 @@ public abstract class Expressao {
     }
     
     public Object getResultado(){
+        
         return this.resolve.resolveExpressao(expressao);
     }
 
