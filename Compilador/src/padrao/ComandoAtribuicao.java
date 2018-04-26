@@ -5,7 +5,6 @@
  */
 package padrao;
 import KKKKK.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -19,11 +18,16 @@ public class ComandoAtribuicao implements Comando{
     public ComandoAtribuicao(String nome, Expressao exp){
         this.nomeVariavel = nome;
         this.expressao = exp;
+         if(!Aplicacao.variaveis.containsKey(nomeVariavel)){
+             Aplicacao.variaveis.put(this.nomeVariavel, new Variavel(this.expressao, nomeVariavel));
+         }
+        
     }
 
     @Override
     public void run() {
-       Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
+            Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
+       
     }
     
 }

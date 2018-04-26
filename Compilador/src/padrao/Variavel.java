@@ -15,11 +15,6 @@ public class Variavel {
     
     public Variavel(Expressao expressao, String nome){
         this.expressao = expressao;        
-        this.colocaNoMap(nome);
-    }
-    
-    private void colocaNoMap(String nome){
-        Aplicacao.variaveis.put(nome, this);
     }
     
     public Expressao getExpressao() {

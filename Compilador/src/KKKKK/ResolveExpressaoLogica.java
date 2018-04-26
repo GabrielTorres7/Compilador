@@ -76,7 +76,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     }
     
     private int getInicioOperando1(String expressao, int posicaoOperador) {
-                List<String> numerosELetras = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "." , "true", "false" ));
+                List<String> numerosELetras = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."));
         Character operadorAnterior;
             for (int i = posicaoOperador; i > 1; i--) {  //5+41+32*31
                 operadorAnterior = expressao.charAt(i - 1);
@@ -88,7 +88,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     }
     
     private int getFinalOperando2(String expressao, int posicaoOperador) {
-        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' , 't', 'f'));
+        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' ));
         Character operadorPosterior;
             for (int i = posicaoOperador+1 ; i < (expressao.length()-1); i++) {
                 operadorPosterior = expressao.charAt(i);

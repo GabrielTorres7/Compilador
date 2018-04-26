@@ -44,13 +44,16 @@ public class ComandoForTest {
     public void test1() {
         System.out.println("Teste 1");
         
-        Variavel var = new Variavel(new ExpressaoAritmetica("0"), "teste");
+        Variavel i = new Variavel(new ExpressaoAritmetica("0"), "teste");
         ExpressaoAritmetica condicaoParada = new ExpressaoAritmetica("10");
         String tipo = "to";
         ArrayList<Comando> comandos = new ArrayList<>();
-        Aplicacao.variaveis.put("teste", var);
-        comandos.add(new ComandoPrint(new ExpressaoAritmetica("1")));
-        comandos.add(new ComandoPrint(new ExpressaoAritmetica("2")));
+        Aplicacao.variaveis.put("teste", i);
+        
+        comandos.add(new ComandoAtribuicao("condicaoParada", condicaoParada));
+        comandos.add(new ComandoPrint(Aplicacao.variaveis.get("condicaoParada").getExpressao()));
+        comandos.add(new ComandoPrintln());
+        comandos.add(new ComandoPrint(i.getExpressao()));
         comandos.add(new ComandoPrintln());
         
         /* 
@@ -59,17 +62,8 @@ public class ComandoForTest {
                 }
         */
         
-        var.setExpressao(new ExpressaoAritmetica("0"));
         ComandoFor instance = new ComandoFor("teste", tipo, condicaoParada, comandos);
-        System.out.println("Teste to");
         instance.run();
-        
-        tipo = "downto";
-        var.setExpressao(new ExpressaoAritmetica("20"));
-        ComandoFor instance2 = new ComandoFor("teste", tipo, condicaoParada, comandos);
-        System.out.println("Teste downto");
-        instance2.run();
-
     }
     
 }
