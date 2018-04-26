@@ -1,5 +1,6 @@
 package padrao;
-import KKKKK.*;
+import Expressao.Expressao;
+import Expressao.ExpressaoAritmetica;
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -62,9 +63,9 @@ public class AnalisaExpressao {
 
    
     public Object analisa (String expressao){
-        Variavel arroz  = new Variavel(teste1,"arroz");
+        Variavel arroz  = new Variavel(new ExpressaoAritmetica("50"),"arroz");
         Variavel b =  new Variavel(teste2,"b");
-        Variavel variav =  new Variavel(teste2,"variav");
+        Variavel feijao =  new Variavel(new ExpressaoAritmetica("25"),"feijao");
         
         // Preenchendo lista com letras de a-z
         letras.add("a"); letras.add("b"); letras.add("c"); letras.add("d"); letras.add("e"); letras.add("f"); letras.add("g");
@@ -75,12 +76,11 @@ public class AnalisaExpressao {
         numeros.add("0"); numeros.add("1"); numeros.add("2"); numeros.add("3"); numeros.add("4");
         numeros.add("5"); numeros.add("6"); numeros.add("7"); numeros.add("8"); numeros.add("9"); 
         //Preenchendo Mulop
-        mulop.add("*"); mulop.add("/"); mulop.add("mod"); mulop.add("div"); mulop.add("and");
+        mulop.add("*"); mulop.add("/"); mulop.add(" mod "); mulop.add("div"); mulop.add("and");
         //Preenchendo relop
         relop.add("=");relop.add("<");relop.add("<=");relop.add(">");relop.add(">=");relop.add("<>");
         //preenchendo reservadas
-        reservadas.add("mod"); reservadas.add("div"); reservadas.add("and"); reservadas.add("or"); reservadas.add("mod");
-        
+        reservadas.add(" mod "); reservadas.add(" div "); reservadas.add("and"); reservadas.add("or");
         //TESTE
         System.out.println("Inicial = "+expressao);
         testaParenteses(expressao);
@@ -89,6 +89,7 @@ public class AnalisaExpressao {
             String aux = String.valueOf(expressao.charAt(i)); //Aux é uma String de somente um char, que no caso o sendo avaliado nomomento
             //Testa se é variavel
             if(letras.contains(aux)){
+              
                int contAux;
                 String palavraAux = "";
                 String caractere ;
@@ -99,50 +100,58 @@ public class AnalisaExpressao {
                         !caractere.equals("+")&&!caractere.equals("-")&&
                         !mulop.contains(caractere)&&
                         !relop.contains(caractere)&&
-                        !caractere.equals(")"))
+                        !caractere.equals(")") &&
+                        !caractere.equals(".")   )
                    {
                         palavraAux+=caractere;
                    } else{
+                   
                             if(!palavraAux.equals("")){
                                 System.out.println("palavra1="+palavraAux);
                                 if(Aplicacao.variaveis.containsKey(palavraAux)){
                                     //VALOR VARIAVEL
-                                    expressao = expressao.replace(palavraAux, "valor1");
+                                    expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
                                 }// se nao é variavel E nao é reservada
-                                if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){   
+                                if (reservadas.contains(palavraAux)) {
+                                    System.out.println("palavr="+palavraAux);
+                                    break;
+                                }
+                                if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
                                     throw new RuntimeException("Expressao invalida! Palavra n existe!");
                                 }
+                                
                             }
                            palavraAux=  "";
                          }
                    if(caractere.equals("("))
                        break;
                 }
-                i = contAux;
-                
+
                 if(!palavraAux.equals("")){
                     System.out.println("palvra2="+palavraAux);
                     if(Aplicacao.variaveis.containsKey(palavraAux)){
                         //VALOR VARIAVEL
-                        expressao = expressao.replace(palavraAux, "valor2");
+                        expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
                     }
                     // se e reservada
                      if(reservadas.contains(palavraAux)){
-                        System.out.println("contem"+palavraAux);
-                    }
+                        System.out.println("contem "+palavraAux);
+                        break;
+                    }                
                     //Testa se nao e variavel E nao e reservada
-                    if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){   
+                    if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
+                        
                         throw new RuntimeException("Expressao invalida! Palavra n existe!");
                     }
-                }
-            }     System.out.println("i="+i);
+               }
+            }     
             if( i==0 ) { //Primeiro elemento da exp.
                  int contAux;
                  String palavraAux = "";
                  String caractere ;
                  for( contAux = i; contAux<expressao.length();contAux++) {
                      caractere = String.valueOf(expressao.charAt(contAux));
-                     System.out.println("caractere="+caractere);
+                    // System.out.println("caractere="+caractere);
                     if(caractere.equals("/")||caractere.equals("*")||caractere.equals(",")){
                         throw new RuntimeException("Expressao invalida!");
                     }
@@ -150,21 +159,33 @@ public class AnalisaExpressao {
                         !numeros.contains(caractere)&&
                         !caractere.equals("+")&&
                         !caractere.equals("-")&&
-                        !relop.contains(caractere)){
+                        !relop.contains(caractere)&&
+                        !caractere.equals("."))
+                    {
                         if(caractere.equals(',') ){
                             throw new RuntimeException("Expressao invalida!");
                         }
                         palavraAux+=String.valueOf(expressao.charAt(contAux));
                     }                      
-                 }System.out.println("palavraAux="+palavraAux); 
+                 }
+                 
+                 System.out.println("palavraAux="+palavraAux);
+                 if(reservadas.contains(palavraAux)){
+                     System.out.println("reservadas contem "+palavraAux+"= "+reservadas.contains(palavraAux));
+                     System.out.println("aq");
+                     break;
+                 }
+                 if(contAux==expressao.length())
+                    continue;
                  if(Aplicacao.variaveis.containsKey(palavraAux)){
                      //VALOR VARIAVEL
-                    expressao = expressao.replace(palavraAux, "valor1");
+                    expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
                  }
-                 if(mulop.contains(palavraAux)||palavraAux.equals("") ||
+                if(mulop.contains(palavraAux)||palavraAux.equals("") ||
                     (!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux) ))
                     throw new RuntimeException("Expressao invalida!");
                    i=contAux;
+                
             }        
             if(i<expressao.length()){
                 if(expressao.charAt(i)=='('){
@@ -182,16 +203,29 @@ public class AnalisaExpressao {
                             !caractere.equals("-")&&
                             !mulop.contains(caractere)&& 
                             !relop.contains(caractere)&& 
-                            !caractere.equals(")")){
+                            !caractere.equals(")")&&
+                            !caractere.equals(".")){
                             if(caractere.equals(',') ){
                                 throw new RuntimeException("Expressao invalida!");
                             }
                             palavraAux+=String.valueOf(expressao.charAt(contAux));
                         }                      
-                     }
+                     } // a > b+5
                 }
             }
     }//for
+        //Verifica se a expressao contem algum elemento de relop(logico)
+            int contem = 0;
+            for(int i=0;i<relop.size();i++){
+                if(expressao.contains(relop.get(i))){
+                    System.out.println("contem");
+                    contem++;
+                }
+            }
+            
+       
+        
+        
         //TESTE expfinal
         System.out.println("final = "+expressao);
         System.exit(0);
