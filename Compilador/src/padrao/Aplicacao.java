@@ -9,6 +9,8 @@ package padrao;
  *
  * @author Gabriel
  */
+import Expressao.ExpressaoAritmetica;
+import Expressao.ExpressaoLogica;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,7 +19,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import KKKKK.*;
 
 public class Aplicacao {
 
@@ -25,7 +26,9 @@ public class Aplicacao {
 
     public static void main(String[] args) throws Exception {
         String programa = null;
-
+        
+        ArrayList<Comando> comandosfor = new ArrayList();
+        ArrayList<Comando> comandoswhile = new ArrayList();
         ArrayList<Comando> comandos = new ArrayList();
         ArrayList<String> palavras_reservadas = new ArrayList();
 
@@ -197,11 +200,100 @@ public class Aplicacao {
                         }
                     }
                     if (palavraAux.equals("while")) {
-
+                        a = i;
+                        if(caractere == ' '){
+                            while(caractere == ' '){
+                            a++;
+                            caractere = programa.charAt(a);
+                            }
+                        }
+                        if (caractere == '(') {
+                            a++;
+                            caractereAux = programa.charAt(a);
+                            if(caractereAux == ' '){
+                                while(caractereAux == ' '){
+                                    a++;
+                                    caractereAux = programa.charAt(a);
+                                }
+                            }
+                            while (caractereAux != ')') {
+                                expressao += caractereAux;
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                
+                                if(caractereAux == ' '){
+                                    while(caractereAux == ' '){
+                                        a++;
+                                        caractereAux = programa.charAt(a);
+                                    }
+                                }
+                            }
+                        }                                                                   
+                        ExpressaoLogica e1 = new ExpressaoLogica(expressao);                        
+                        ComandoWhile While = new ComandoWhile(e1, comandoswhile);  
+                        
                     }
                     if (palavraAux.equals("if")) {
 
                     }
+                     if (palavraAux.equals("for")) {  
+                        String Variavel = "";
+                        char variavel1;
+                        a = i;
+                        if(caractere == ' '){
+                            while(caractere == ' '){
+                            a++;
+                            variavel1 = programa.charAt(a);
+                            }
+                            if(!variaveis.containsKey(palavraAux)){
+                             variavel = new Variavel(new ExpressaoAritmetica(subExpressaoAtribuicao), palavraAux);
+                        }
+                        if (caractere == '(') {
+                            a++;
+                            caractereAux = programa.charAt(a);
+                            if(caractereAux == ' '){
+                                while(caractereAux == ' '){
+                                    a++;
+                                    caractereAux = programa.charAt(a);
+                                }
+                            }
+                            while (caractereAux != ')') {
+                                expressao += caractereAux;
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                
+                                if(caractereAux == ' '){
+                                    while(caractereAux == ' '){
+                                        a++;
+                                        caractereAux = programa.charAt(a);
+                                    }
+                                }
+                            }
+                        }  
+                            while (caractereAux != ')') {
+                                expressao += caractereAux;
+                                a++;
+                                caractereAux = programa.charAt(a);
+                                
+                                if(caractereAux == ' '){
+                                    while(caractereAux == ' '){
+                                        a++;
+                                        caractereAux = programa.charAt(a);
+                                    }
+                                }
+                            }
+                            if(expressao == "to"){
+                                ExpressaoAritmetica e1 = new ExpressaoAritmetica(expressao); 
+                                ComandoFor For = new ComandoFor(Variavel, "to", e1, comandosfor );
+                            }
+                            if(expressao == "downto"){
+                                ExpressaoAritmetica e1 = new ExpressaoAritmetica(expressao); 
+                                ComandoFor For = new ComandoFor(Variavel, "downto", e1, comandosfor );
+                            }
+                        }   
+                    }
+                
+                     
                     if (palavraAux.equals("println")) {
                         println = new ComandoPrintln();
                         comandos.add(println);
@@ -314,3 +406,4 @@ public class Aplicacao {
     }
 
 }
+

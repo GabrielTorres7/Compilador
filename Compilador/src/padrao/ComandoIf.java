@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package padrao;
-import KKKKK.*;
+import Expressao.ExpressaoLogica;
 import java.util.ArrayList;
 
 /**

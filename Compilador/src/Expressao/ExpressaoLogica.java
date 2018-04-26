@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package KKKKK;
+package Expressao;
 
 /**
  *
  * @author Arthur
  */
-public class ExpressaoAritmetica extends Expressao{
-    
-    public ExpressaoAritmetica(String expressao){
-        super(new ResolveExpressaoAritmetica(), expressao);
+public class ExpressaoLogica extends Expressao{
+
+    public ExpressaoLogica(String expressao) {
+        super(new ResolveExpressaoLogica(), expressao);
     }
     
 }

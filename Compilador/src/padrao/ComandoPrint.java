@@ -5,7 +5,7 @@
  */
 package padrao;
 
-import KKKKK.*;
+import Expressao.Expressao;
 /**
  *
  * @author Arthur

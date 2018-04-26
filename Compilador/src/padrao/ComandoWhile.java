@@ -5,8 +5,8 @@
  */
 package padrao;
 
+import Expressao.ExpressaoLogica;
 import java.util.ArrayList;
-import KKKKK.*;
 /**
  *
  * @author Arthur
