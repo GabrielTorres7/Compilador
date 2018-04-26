@@ -3,15 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package padrao;
+package KKKKK;
 
 /**
  *
- * @author Allan
+ * @author Arthur
  */
-public interface Expressao<T>{
+public abstract class Expressao {
     
-    public T resolveExpressao();
-    public T resolveExpressao(String expressao);
-            
+    protected ResolveExpressao resolve;
+    private String expressao;
+
+    protected Expressao(ResolveExpressao resolve, String expressao) {
+        this.resolve = resolve;
+        this.expressao = expressao;
+    }
+    
+    public Object getResultado(){
+        return this.resolve.resolveExpressao(expressao);
+    }
+
+    public String getExpressao() {
+        return expressao;
+    }
+
+    public void setExpressao(String expressao) {
+        this.expressao = expressao;
+    }
+    
+    
 }

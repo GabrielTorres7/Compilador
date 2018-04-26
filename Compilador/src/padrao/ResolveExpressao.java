@@ -8,11 +8,10 @@ package KKKKK;
 /**
  *
  * @author Arthur
+ * @param <T>
  */
-public class ExpressaoAritmetica extends Expressao{
+public interface ResolveExpressao<T> {
     
-    public ExpressaoAritmetica(String expressao){
-        super(new ResolveExpressaoAritmetica(), expressao);
-    }
+    public T resolveExpressao(String expressao);
     
 }
