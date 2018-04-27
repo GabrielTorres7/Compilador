@@ -1,6 +1,9 @@
 package padrao;
 import Expressao.Expressao;
 import Expressao.ExpressaoAritmetica;
+import Expressao.ExpressaoLogica;
+import Expressao.ResolveExpressaoAritmetica;
+import Expressao.ResolveExpressaoLogica;
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -63,9 +66,10 @@ public class AnalisaExpressao {
 
    
     public Object analisa (String expressao){
-        Variavel arroz  = new Variavel(new ExpressaoAritmetica("50"),"arroz");
-        Variavel b =  new Variavel(teste2,"b");
-        Variavel feijao =  new Variavel(new ExpressaoAritmetica("25"),"feijao");
+        ComandoAtribuicao arroz  = new ComandoAtribuicao("arroz",new ExpressaoAritmetica("50"));
+        ComandoAtribuicao b =  new ComandoAtribuicao("b",new ExpressaoAritmetica("98"));
+        ComandoAtribuicao feijao =  new ComandoAtribuicao("feijao",new ExpressaoAritmetica("30"));
+        
         
         // Preenchendo lista com letras de a-z
         letras.add("a"); letras.add("b"); letras.add("c"); letras.add("d"); letras.add("e"); letras.add("f"); letras.add("g");
@@ -82,7 +86,7 @@ public class AnalisaExpressao {
         //preenchendo reservadas
         reservadas.add(" mod "); reservadas.add(" div "); reservadas.add("and"); reservadas.add("or");
         //TESTE
-        System.out.println("Inicial = "+expressao);
+//        System.out.println("Inicial = "+expressao);
         testaParenteses(expressao);
         
         for(i=0; i<expressao.length(); i++){
@@ -107,13 +111,14 @@ public class AnalisaExpressao {
                    } else{
                    
                             if(!palavraAux.equals("")){
-                                System.out.println("palavra1="+palavraAux);
+             //                   System.out.println("palavra1="+palavraAux);
                                 if(Aplicacao.variaveis.containsKey(palavraAux)){
                                     //VALOR VARIAVEL
                                     expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
                                 }// se nao é variavel E nao é reservada
+                //                System.out.println("auxiliar="+palavraAux);
                                 if (reservadas.contains(palavraAux)) {
-                                    System.out.println("palavr="+palavraAux);
+                //                    System.out.println("palavr="+palavraAux);
                                     break;
                                 }
                                 if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
@@ -128,7 +133,7 @@ public class AnalisaExpressao {
                 }
 
                 if(!palavraAux.equals("")){
-                    System.out.println("palvra2="+palavraAux);
+                //    System.out.println("palvra2="+palavraAux);
                     if(Aplicacao.variaveis.containsKey(palavraAux)){
                         //VALOR VARIAVEL
                         expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
@@ -149,18 +154,23 @@ public class AnalisaExpressao {
                  int contAux;
                  String palavraAux = "";
                  String caractere ;
+                 caractere = String.valueOf(expressao.charAt(i));
+                 if(caractere.equals("/")||caractere.equals("*")||caractere.equals(",")){
+                        throw new RuntimeException("Expressao invalida!");
+                    }
                  for( contAux = i; contAux<expressao.length();contAux++) {
                      caractere = String.valueOf(expressao.charAt(contAux));
                     // System.out.println("caractere="+caractere);
-                    if(caractere.equals("/")||caractere.equals("*")||caractere.equals(",")){
-                        throw new RuntimeException("Expressao invalida!");
-                    }
+                    
                     if( !caractere.equals("(")&&
                         !numeros.contains(caractere)&&
                         !caractere.equals("+")&&
                         !caractere.equals("-")&&
                         !relop.contains(caractere)&&
-                        !caractere.equals("."))
+                        !caractere.equals(".") &&
+                        !caractere.equals("/") &&  
+                        !caractere.equals("*")  &&
+                        !caractere.equals(")")  )
                     {
                         if(caractere.equals(',') ){
                             throw new RuntimeException("Expressao invalida!");
@@ -169,10 +179,7 @@ public class AnalisaExpressao {
                     }                      
                  }
                  
-                 System.out.println("palavraAux="+palavraAux);
                  if(reservadas.contains(palavraAux)){
-                     System.out.println("reservadas contem "+palavraAux+"= "+reservadas.contains(palavraAux));
-                     System.out.println("aq");
                      break;
                  }
                  if(contAux==expressao.length())
@@ -189,6 +196,13 @@ public class AnalisaExpressao {
             }        
             if(i<expressao.length()){
                 if(expressao.charAt(i)=='('){
+                    if(i!=0){
+                        if(!mulop.contains(String.valueOf(expressao.charAt(i-1))) && !relop.contains(String.valueOf(expressao.charAt(i-1))) &&
+                            expressao.charAt(i-1)!='+'&&expressao.charAt(i-1)!='-'  ){
+                            System.out.println("charat="+expressao.charAt(i-1)    );
+                            throw new RuntimeException("Expressao invalida! (Sem operador antes de parenteses)");
+                        }
+                    }
                     int contAux;
                      String palavraAux = "";
                      String caractere ;
@@ -216,23 +230,67 @@ public class AnalisaExpressao {
     }//for
         //Verifica se a expressao contem algum elemento de relop(logico)
             int contem = 0;
-            for(int i=0;i<relop.size();i++){
-                if(expressao.contains(relop.get(i))){
+            //contador auxiliar
+            int k = 0;
+            for(int i=0;i<expressao.length();i++){
+                if(relop.contains(String.valueOf(expressao.charAt(i)))){
                     System.out.println("contem");
                     contem++;
+                    k=i-1;
                 }
             }
-            
-       
-        
-        
-        //TESTE expfinal
-        System.out.println("final = "+expressao);
-        System.exit(0);
-        return null;
+            if(contem!=0){
+                if(relop.contains(String.valueOf(expressao.charAt(k)))){
+                      //Antes do operador
+                    if(expressao.substring(0,k).contains("+") || expressao.substring(0,k).contains("-") || 
+                       expressao.substring(0,k).contains("/") || expressao.substring(0,k).contains("*") ||
+                       expressao.substring(0,k).contains(" mod ") )
+                    {
+                            String substring = expressao.substring(0,k);
+                            String resultado= String.valueOf(new ResolveExpressaoAritmetica().resolveExpressao(substring));
+                            expressao = expressao.replace(substring,resultado);
+                    }
+                    //Depois do operador
+                    if(expressao.substring(k+1,expressao.length()).contains("+") || expressao.substring(k+1,expressao.length()).contains("-") || 
+                       expressao.substring(k+1,expressao.length()).contains("/") || expressao.substring(k+1,expressao.length()).contains("*") ||
+                       expressao.substring(k+1,expressao.length()).contains(" mod ") )
+                    {
+                        String substring = expressao.substring(k+1,expressao.length());
+                        String resultado= String.valueOf(new ResolveExpressaoAritmetica().resolveExpressao(substring));
+                        expressao = expressao.replace(substring,resultado);
+                    }
+                }else{
+                    //Antes do operador
+                    if(expressao.substring(0,k+1).contains("+") || expressao.substring(0,k+1).contains("-") || 
+                       expressao.substring(0,k+1).contains("/") || expressao.substring(0,k+1).contains("*") ||
+                       expressao.substring(0,k+1).contains(" mod ") )
+                    {
+                        String substring = expressao.substring(0,k+1);
+                        String resultado= String.valueOf(new ResolveExpressaoAritmetica().resolveExpressao(substring));
+                        expressao = expressao.replace(substring,resultado);
+                    }
+                     //Depois do operador
+                     if(expressao.substring(k+1,expressao.length()).contains("+") || expressao.substring(k+1,expressao.length()).contains("-") || 
+                       expressao.substring(k+1,expressao.length()).contains("/") || expressao.substring(k+1,expressao.length()).contains("*") ||
+                       expressao.substring(k+1,expressao.length()).contains(" mod ") )
+                    {
+                       String substring = expressao.substring(k+1,expressao.length());
+                       String resultado= String.valueOf(new ResolveExpressaoAritmetica().resolveExpressao(substring));
+                       expressao = expressao.replace(substring,resultado);
+                    }
+                }
+                //Resolve e retorna
+          //      System.out.println("final = "+expressao);
+          //      System.out.println("Resultado="+new ResolveExpressaoLogica().resolveExpressao(expressao));
+                System.exit(0);
+                
+                return new ResolveExpressaoLogica().resolveExpressao(expressao);
+            }
+            //Nao contem operador logico
+         //  System.out.println("final="+expressao);
+                System.out.println("Resultado="+new ResolveExpressaoAritmetica().resolveExpressao(expressao));
+                return (new ResolveExpressaoAritmetica().resolveExpressao(expressao));
     }    
-
-
 }
 
    
