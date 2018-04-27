@@ -12,8 +12,9 @@ import Expressao.Expressao;
  */
 public class ComandoAtribuicao implements Comando{
     
-    private String nomeVariavel;
-    private Expressao expressao;
+    private final String nomeVariavel;
+
+    private final Expressao expressao;
     
     public ComandoAtribuicao(String nome, Expressao exp){
         this.nomeVariavel = nome;
@@ -23,11 +24,19 @@ public class ComandoAtribuicao implements Comando{
          }
         
     }
+    
+    public String getNomeVariavel() {
+        return nomeVariavel;
+    }
+
+    public Expressao getExpressao() {
+        return expressao;
+    }
 
     @Override
     public void run() {
             Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
-       
+            System.out.println("VALOR EXPRESSAO ATRIBUICAOOOOO:" + this.expressao.getResultado());
     }
     
 }

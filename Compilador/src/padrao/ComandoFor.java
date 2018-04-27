@@ -13,13 +13,15 @@ import java.util.ArrayList;
  */
 public class ComandoFor implements Comando{
     
-    private final String iterador;
+    private final ComandoAtribuicao atribuicao;
+    private final Integer valorAtribuicao;
     private final String tipo;
     private final Integer fim;
     private final ArrayList<Comando> blocoComandosFor;
     
-    public ComandoFor(String nomeVariavel, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
-        this.iterador = nomeVariavel;
+    public ComandoFor(ComandoAtribuicao atribuicao, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
+        this.atribuicao = atribuicao;
+        this.valorAtribuicao = ((Double)((ExpressaoAritmetica)atribuicao.getExpressao()).getResultado()).intValue();
         this.tipo = tipo;
         this.fim = ((Double)expressao.getResultado()).intValue();
         this.blocoComandosFor = comandos;
@@ -27,17 +29,20 @@ public class ComandoFor implements Comando{
 
     @Override
     public void run() {
+        
+        Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(valorAtribuicao.toString());
+        
         if(tipo.equals("to")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue();
-                    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue() < fim;
-                    Aplicacao.variaveis.get(iterador).getExpressao().setExpressao( ((Double)((Double)Aplicacao.variaveis.get(iterador).getExpressao().getResultado() + 1.0)).toString() )){
+            for(Integer iterador=0; iterador < fim; iterador++){
+                Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
+                Aplicacao.variaveis.forEach((k, v)->System.out.println("Variavel: "+k+" Valor : "+v.getExpressao().getResultado()));
                 blocoComandosFor.forEach((cmd) -> cmd.run());
             }
         }else if(tipo.equals("downto")){
-            for(    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue();
-                    ( (Double) Aplicacao.variaveis.get(iterador).getExpressao().getResultado() ).intValue() > fim;
-                    Aplicacao.variaveis.get(iterador).getExpressao().setExpressao( ((Double)((Double)Aplicacao.variaveis.get(iterador).getExpressao().getResultado() - 1.0)).toString() )){
-                blocoComandosFor.forEach( (cmd) -> cmd.run() );
+            for(Integer iterador=0; iterador > fim; iterador--){
+                Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
+                Aplicacao.variaveis.forEach((k, v)->System.out.println("Variavel: "+k+" Valor : "+v.getExpressao().getResultado()));
+                blocoComandosFor.forEach((cmd) -> cmd.run());
             }
         }
     }
