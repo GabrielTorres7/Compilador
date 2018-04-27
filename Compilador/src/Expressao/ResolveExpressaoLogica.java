@@ -70,7 +70,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
                 finalOperando2 = this.getFinalOperando2(expressao, inicioOperando2 - 1);
                 operando2 = (expressao.substring( inicioOperando2 , finalOperando2));
                 
-                if(operador.equals("or") || operador.equals("and")){
+                if(operador.equals("or") || operador.equals("and") || operador.equals("not")){
                     conta= expressao.substring( inicioOperando1, finalOperando2);
                     resultado = this.conta( Boolean.parseBoolean(operando1), operador, Boolean.parseBoolean(operando2) );
                     System.out.println("1:"+Boolean.parseBoolean(operando1));
@@ -82,7 +82,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
                     resultado = this.conta(Double.parseDouble(operando1), operador, Double.parseDouble(operando2));
                     expressao = expressao.replace(conta, resultado.toString()); 
                     
-                }else if( (operador.equals("=") || operador.equals("not"))){
+                }else if(operador.equals("=")){
                     conta= expressao.substring( inicioOperando1, finalOperando2);
                     resultado = this.conta(operando1, operador, operando2);
                     expressao = expressao.replace(conta, resultado.toString()); 
@@ -94,7 +94,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     }
     
     private int getInicioOperando1(String expressao, int posicaoOperador) {
-        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 't', 'r', 'u', 'e', 'f', 'a', 'l', 's'));
+        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
         Character operadorAnterior;
             for (int i = posicaoOperador; i > 1; i--) {  //
                 operadorAnterior = expressao.charAt(i - 1);
@@ -106,7 +106,7 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     }
     
     private int getFinalOperando2(String expressao, int posicaoOperador) {
-        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 't', 'r', 'u', 'e', 'f', 'a', 'l', 's'));
+        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
         Character operadorPosterior;
             for (int i = posicaoOperador+1 ; i < (expressao.length()-1); i++) {
                 operadorPosterior = expressao.charAt(i);
@@ -119,6 +119,8 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     
     public Boolean conta(Boolean operando1, String operador, Boolean operando2) {
         switch(operador){
+            case "not":
+                return !operando2;
             case "or":
                 return operando1 || operando2;
             case "and":
@@ -145,8 +147,6 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     
     public Boolean conta(String operando1, String operador, String operando2) {
         switch(operador){
-            case "not":
-                return operando1 != operando2;
             case "=":
                 return operando1.equals(operando2);
             default:

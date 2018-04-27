@@ -29,20 +29,21 @@ public class ComandoFor implements Comando{
 
     @Override
     public void run() {
-        
-        Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(valorAtribuicao.toString());
-        
+
         if(tipo.equals("to")){
-            for(Integer iterador=0; iterador < fim; iterador++){
+            for(Integer iterador=valorAtribuicao; iterador < fim; iterador++){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
-                Aplicacao.variaveis.forEach((k, v)->System.out.println("Variavel: "+k+" Valor : "+v.getExpressao().getResultado()));
-                blocoComandosFor.forEach((cmd) -> cmd.run());
+                blocoComandosFor.forEach((cmd) -> {
+                    cmd.run();
+                });
             }
         }else if(tipo.equals("downto")){
-            for(Integer iterador=0; iterador > fim; iterador--){
+            for(Integer iterador=valorAtribuicao; iterador > fim; iterador--){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
-                Aplicacao.variaveis.forEach((k, v)->System.out.println("Variavel: "+k+" Valor : "+v.getExpressao().getResultado()));
-                blocoComandosFor.forEach((cmd) -> cmd.run());
+
+                blocoComandosFor.forEach((cmd) -> {
+                    cmd.run();
+                });
             }
         }
     }
