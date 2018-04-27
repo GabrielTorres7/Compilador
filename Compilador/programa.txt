@@ -1,7 +1,12 @@
-a :=   5 +  2
+a :=   1
 b:=7
- print(a+b) 
+ print (  9 *8 )  
   println
 b:=7
 print(55)
+println
+while ( a > 6)  do  
+print (8 ) 
+ println
+endwhile
 end
