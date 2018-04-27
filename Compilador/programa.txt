@@ -5,8 +5,8 @@ b:=7
 b:=7
 print(55)
 println
-while (a<2) do
-print(5)
-a:=3
+while ( a > 6)  do  
+print (8 ) 
+ println
 endwhile
 end
