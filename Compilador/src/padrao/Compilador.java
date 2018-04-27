@@ -344,9 +344,9 @@ public class Compilador {
                             while (caractere == ' ') {
                                 a++;
                                 caractere = programa.charAt(a);
-                                then += caractere;
                             }
                         }
+                        then += caractere;
                         for(int b=0; b<3; b++){
                             a++;
                             caractere = programa.charAt(a);
