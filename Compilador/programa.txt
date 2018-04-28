@@ -1,13 +1,9 @@
-if ( 7 > 8)  then  
-print (99999) 
- println
-endif
-if ( 7 < 8)  then  
-print (00000) 
- println
-endif
-if ( 7 > 7)  then  
-print (11111) 
- println
-endif
+a:=2
+
+for i :=  2   to 4  do
+print (8)
+println 
+print (55)
+println
+endfor
 end

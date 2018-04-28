@@ -36,7 +36,6 @@ public class ComandoAtribuicao implements Comando{
     @Override
     public void run() {
             Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
-            System.out.println("VALOR EXPRESSAO ATRIBUICAOOOOO:" + this.expressao.getResultado());
     }
     
 }

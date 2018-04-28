@@ -45,25 +45,30 @@ public class Compilador {
         
         Compilador compilador;
         Compilador compiladorBlocoElse;
+        AnalisaExpressao analisaExpressao = new AnalisaExpressao();;
         ComandoAtribuicao comandoAtribuicao;
         ComandoPrint print;
         ComandoPrintln println;
         ComandoReadInt readInt;
         ComandoWhile comandoWhile;
         ComandoIf comandoIf;
+        ComandoFor comandoFor;
         char caractere = '0';
         char caractereAux = '0';
         String palavraAux = "";
         String atribuicao = "";
+        String atribuindo = "";
         String expressao = "";
         String subExpressaoAtribuicao = "";
         String subPrograma = "";
+        String tipo = "";
         String subProgramaIf = "";
         String subProgramaElse = "";
         String subPalavraAux = "";
         int saldoParenteses = 0;
-        int saldoWhile;
-        int saldoIf;
+        int saldoWhile = 0;
+        int saldoIf = 0;
+        int saldoFor = 0;
         int i, a, inicioComando = 0;
         boolean temElse;
         
@@ -173,14 +178,13 @@ public class Compilador {
                             comandos.add(readInt);
                             i = inicioComando;
                         } else {
-                            //Erro: variavel nao existe.
+                            throw new VariavelNaoExisteException("Variavel no readInt não existe.");
                         }
                         if (expressao.contains(" ")) {
-                            //Erro: conteudo do readInt deve ser uma variavel.
+                            throw new ConteudoReadIntIncorretoException("Conteudo do readInt deve ser uma variavel existente.");
                         }
                     }
                     if (palavraAux.equals("while")) {
-                        saldoWhile = 0;
                         subPrograma = "";
                         subPalavraAux = "";
                         saldoParenteses = 0;
@@ -219,7 +223,7 @@ public class Compilador {
                                 }
                             } while (!(caractere == ')' && saldoParenteses == 0));
                         }else {
-                            //Erro: sintaxe while
+                            throw new SintaxeWhileIncorretaException("Sintaxe do comando while incorreta.");
                         }
                         a++;
                         caractere = programa.charAt(a);
@@ -240,7 +244,7 @@ public class Compilador {
                                     caractere = programa.charAt(a);
                                 }
                             }else{
-                             //Erro: sintaxe while   
+                             throw new SintaxeWhileIncorretaException("Sintaxe do comando while incorreta.");   
                             }
                             while (saldoWhile != 0){
                                 if (caractere != ' ') {
@@ -264,7 +268,7 @@ public class Compilador {
                         inicioComando = a-1;
                             
                         }else{
-                            //Erro: sintaxe while
+                            throw new SintaxeWhileIncorretaException("Sintaxe do comando while incorreta.");
                         }
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
@@ -292,7 +296,6 @@ public class Compilador {
                     }
                     
                     if (palavraAux.equals("if")) {
-                        saldoIf = 0;
                         subPrograma = "";
                         subProgramaIf = "";
                         subProgramaElse = "";
@@ -336,7 +339,7 @@ public class Compilador {
                                 }
                             } while (!(caractere == ')' && saldoParenteses == 0));
                         }else {
-                            //Erro: sintaxe if
+                            throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta.");
                         }
                         a++;
                         caractere = programa.charAt(a);
@@ -361,7 +364,7 @@ public class Compilador {
                                     caractere = programa.charAt(a);
                                 }
                             }else{
-                             //Erro: sintaxe if   
+                             throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta."); 
                             }
                             while (saldoIf != 0){
                                 if (caractere != ' ') {
@@ -377,9 +380,13 @@ public class Compilador {
                                     }else if(!subPalavraAux.equals("endif") && !subPalavraAux.equals("if") && !subPalavraAux.equals("else")){
                                         subPrograma += subPalavraAux+" ";
                                     }else if(subPalavraAux.equals("else")){
+                                        subPrograma += subPalavraAux+" ";
                                         subProgramaIf = subPrograma;
                                         temElse = true;
                                         subPrograma = "";
+                                        subPalavraAux = "";
+                                        a++;
+                                        caractere = programa.charAt(a);
                                         break;
                                     }
                                     subPalavraAux = "";
@@ -388,15 +395,33 @@ public class Compilador {
                                 caractere = programa.charAt(a);
                             }
                            
-                            inicioComando = a-1;
+                            
                             if(temElse){
-                                
+                                while (saldoIf != 0){
+                                    if (caractere != ' ') {
+                                        subPalavraAux += caractere;
+                                    }else{
+                                        if(subPalavraAux.equals("endif")){
+                                            saldoIf--;
+                                            subPrograma += subPalavraAux+" ";
+                                        }else if(subPalavraAux.equals("if")){
+                                            saldoIf++;
+                                            subPrograma += subPalavraAux+" ";
+                                        }else if(!subPalavraAux.equals("endif") && !subPalavraAux.equals("if")){
+                                            subPrograma += subPalavraAux+" ";
+                                        }
+                                        subPalavraAux = "";
+                                    }
+                                    a++;
+                                    caractere = programa.charAt(a);
+                                }
+                                subProgramaElse = subPrograma;
                             }else{
                                 subProgramaIf = subPrograma;
                             }
-                            
+                            inicioComando = a-1;
                         }else{
-                            //Erro: sintaxe if
+                            throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta.");
                         }
                         compilador = new Compilador(subProgramaIf);
                         compilador.analisaComandos();
@@ -408,7 +433,161 @@ public class Compilador {
                     }
                     
                     if (palavraAux.equals("endif")) {
+                        if(saldoIf == 0){
+                            return;
+                        }else{
+                         throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta.");   
+                        }
+               
+                    }
+                    
+                    if (palavraAux.equals("else")) {
                         return;
+                    }
+                    
+                    if (palavraAux.equals("for")) {
+                        subPrograma = "";
+                        tipo = "";
+                        atribuindo = "";
+                        saldoFor++;
+                        String variavel = "";
+                        palavraAux = "";
+                        subPalavraAux = "";
+                        
+                        a = i;
+                        if (caractere == ' ') {
+                            while (caractere == ' ') {
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        }
+                        
+                        while(caractere != ' ' && caractere != ':'){
+                            variavel += caractere;
+                            a++;
+                            caractere = programa.charAt(a);
+                        }                        
+                        if (caractere == ' ') {
+                            while (caractere == ' ') {
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        }
+                        if (caractere == ':') {
+                            a++;
+                            atribuicao = Character.toString(caractere) + programa.charAt(a);
+                            if (atribuicao.equals(":=")) {
+                                a++;
+                                caractere = programa.charAt(a);
+                                if (caractere == ' ') {
+                                    while (caractere == ' ') {
+                                        a++;
+                                        caractere = programa.charAt(a);
+                                    }
+                                }
+                                while(caractere != ' '){
+                                    atribuindo += caractere;
+                                    a++;
+                                    caractere = programa.charAt(a);
+                                }
+                            }
+                        }
+                        if (caractere == ' ') {
+                            while (caractere == ' ') {
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        }
+                        if(caractere == 't'){
+                            tipo += caractere;
+                            a++;
+                            caractere = programa.charAt(a);
+                            tipo += caractere;
+                            if(tipo.equals("to")){
+                                a++;
+                                caractere = programa.charAt(a); 
+                            }else{
+                                throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
+                            }
+                        }else if(caractere == 'd'){
+                            while(caractere != ' '){
+                                tipo += caractere;
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                            if(tipo.equals("downto")){
+                                a++;
+                                caractere = programa.charAt(a);     
+                            }else{
+                                throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
+                            }
+                        }else{
+                            throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
+                        }
+                        
+                        if (caractere == ' ') {
+                            while (caractere == ' ') {
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        }else{
+                            throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
+                        }
+                        
+                        while (!palavraAux.equals("do")) {
+                                if (caractere == ' ') {
+                                    while (caractere == ' ') {
+                                        a++;
+                                        caractere = programa.charAt(a);
+                                    }
+                                    palavraAux = "";
+                                    inicioComando = a - 1;
+                                }
+                                palavraAux += caractere;
+                                expressao += caractere;
+                                a++;
+                                caractere = programa.charAt(a);
+                        }
+                        int posicaoComandoTerminoExpressaoAtribuicao = expressao.indexOf(palavraAux);
+                        expressao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
+
+                        a++;
+                        caractere = programa.charAt(a);
+                        if (caractere == ' ') {
+                            while (caractere == ' ') {
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        }
+                        
+                            while (saldoFor != 0){
+                                if (caractere != ' ') {
+                                    subPalavraAux += caractere;
+
+                                }else{
+                                    if(subPalavraAux.equals("endfor")){
+                                        saldoFor--;
+                                        subPrograma += subPalavraAux+" ";
+                                    }else if(subPalavraAux.equals("for")){
+                                        saldoFor++;
+                                        subPrograma += subPalavraAux+" ";
+                                    }else if(!subPalavraAux.equals("endfor") && !subPalavraAux.endsWith("for")){
+                                        subPrograma += subPalavraAux+" ";
+                                    }
+                                    subPalavraAux = "";
+                                }
+                                a++;
+                                caractere = programa.charAt(a);
+                            }
+                        inicioComando = a-1;
+                            
+                        
+                        compilador = new Compilador(subPrograma);
+                        compilador.analisaComandos();
+                        comandoAtribuicao = new ComandoAtribuicao(variavel, new ExpressaoAritmetica(atribuindo));
+                        comandoFor = new ComandoFor(comandoAtribuicao, tipo, new ExpressaoAritmetica(expressao), compilador.getComandos());
+                        comandos.add(comandoFor);
+                        i = inicioComando;
                     }
 
                 }
@@ -492,7 +671,7 @@ public class Compilador {
                             }
                             i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
                         } else {
-                            //Erro: caractere(s) perdido(s) no programa!
+                            throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
                         }
                     }
                 }
