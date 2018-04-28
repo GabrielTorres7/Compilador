@@ -280,6 +280,7 @@ public class Compilador {
                     if (palavraAux.equals("endwhile")) {
                         return;
                     }
+                    
                     if (palavraAux.equals("println")) {
                         println = new ComandoPrintln();
                         comandos.add(println);
@@ -438,11 +439,26 @@ public class Compilador {
                         }else{
                          throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta.");   
                         }
-               
+                    }
+                    
+                     if (palavraAux.equals("endfor")) {
+                        if(saldoFor == 0){
+                            return;
+                        }else{
+                         throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");   
+                        }
                     }
                     
                     if (palavraAux.equals("else")) {
                         return;
+                    }
+                    
+                    if (palavraAux.equals("do")) {
+                        throw new CaracterSemSemanticaException("Do sem semantica no codigo.");
+                    }
+                    
+                    if (palavraAux.equals("then")) {
+                        throw new CaracterSemSemanticaException("Then sem semantica no codigo.");
                     }
                     
                     if (palavraAux.equals("for")) {

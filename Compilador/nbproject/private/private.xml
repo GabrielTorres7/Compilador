@@ -3,24 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoWhile.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoAtribuicao.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/Compilador.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoPrintln.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/Expressao/Expressao.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/Expressao/ResolveExpressaoLogica.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/test/padrao/ComandoIfTest.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoFor.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoIf.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoReadInt.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/ComandoPrint.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/Variavel.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/Aplicacao.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/AnalisaExpressao.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/padrao/Comando.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/test/padrao/ComandoForTest.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/test/padrao/ComandoWhileTest.java</file>
-            <file>file:/E:/Users/Arthur.DESKTOP-QULNOU2/Desktop/LP/Compilador-CEFETMG/Compilador/src/Expressao/ExpressaoLogica.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/AnalisaExpressao.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/Aplicacao.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/Compilador.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/ConteudoReadIntIncorretoException.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/SintaxeWhileIncorretaException.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/ComandoFor.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/ComandoAtribuicao.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/SintaxeForIncorretaException.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/VariavelNaoExisteException.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/SintaxeIfIncorretaException.java</file>
+            <file>file:/C:/Users/Gabriell/Desktop/Compilador-CEFETMG/Compilador/src/padrao/CaracterSemSemanticaException.java</file>
         </group>
     </open-files>
 </project-private>

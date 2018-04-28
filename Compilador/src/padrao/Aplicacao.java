@@ -22,7 +22,7 @@ public class Aplicacao {
         String programa;
         Compilador compilador;
         
-        arquivo = new LeArquivo("programa.txt");
+        arquivo = new LeArquivo("programa.tiny"); //Diretorio onde está o arquivo do programa.
         programa = arquivo.getArquivo();
         
         compilador = new Compilador(programa);
