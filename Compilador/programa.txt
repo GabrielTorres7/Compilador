@@ -1,12 +1,13 @@
-a :=   1
-b:=7
- print (  9 *8 )  
-  println
-b:=7
-print(55)
-println
-while ( 7 > 6)  do  
-print (8 ) 
+if ( 7 > 8)  then  
+print (99999) 
  println
-endwhile
+endif
+if ( 7 < 8)  then  
+print (00000) 
+ println
+endif
+if ( 7 > 7)  then  
+print (11111) 
+ println
+endif
 end

@@ -41,64 +41,70 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
         for(String operador: OPERADORES){
             //executa enquanto na expressão estiver operadores
             while(expressao.contains(operador)){
-                int posicaoOperador, inicioOperando1, finalOperando1, inicioOperando2, finalOperando2;
+                int inicioOperador, finalOperador, inicioOperando1, finalOperando1, inicioOperando2, finalOperando2;
                 String operando1 = null, operando2 = null;
                 String conta;
                 Boolean resultado;
                 
-                posicaoOperador = expressao.indexOf(operador);
+                inicioOperador = expressao.indexOf(operador);
+                finalOperador = expressao.indexOf(operador)+ operador.length();
                 
                 //seta o operando1 dos operadores unarios
                 if(operador.equals("not")){
-                    inicioOperando1 = expressao.indexOf(operador);
-                    finalOperando1 = posicaoOperador;
-                }
-                //seta o operadorando1 dos operadores binarios
-                else{
-                    inicioOperando1 = this.getInicioOperando1(expressao, posicaoOperador);
-                    finalOperando1 = posicaoOperador;
+                    inicioOperando1 = finalOperando1 = inicioOperador;
+                }else{
+                    inicioOperando1 = this.getInicioOperando1(expressao, inicioOperador);
+                    finalOperando1 = inicioOperador;
                     
                     operando1 = (expressao.substring(inicioOperando1, finalOperando1));
                 }
                 
-                //seta o 2 operando dos operadores que tem mais de 1 caracter
-                if(operador.equals("or") || operador.equals("and") || operador.equals("not") || operador.equals("<=") || operador.equals(">=") || operador.equals("<>")){
-                    inicioOperando2 = posicaoOperador + operador.length();
-                }else{
-                    inicioOperando2 = posicaoOperador + 1;
-                }
+                inicioOperando2 = finalOperador;
                 finalOperando2 = this.getFinalOperando2(expressao, inicioOperando2 - 1);
                 operando2 = (expressao.substring( inicioOperando2 , finalOperando2));
                 
-                if(operador.equals("or") || operador.equals("and") || operador.equals("not")){
-                    conta= expressao.substring( inicioOperando1, finalOperando2);
-                    resultado = this.conta( Boolean.parseBoolean(operando1), operador, Boolean.parseBoolean(operando2) );
-                    System.out.println("1:"+Boolean.parseBoolean(operando1));
-                    System.out.println("2:"+Boolean.parseBoolean(operando2));
-                    expressao = expressao.replace(conta, resultado.toString()); 
-                 
-                }else if( (operador.equals("<=") || operador.equals(">=") || operador.equals("<") || operador.equals(">")) ){
-                    conta= expressao.substring( inicioOperando1, finalOperando2);
-                    resultado = this.conta(Double.parseDouble(operando1), operador, Double.parseDouble(operando2));
-                    expressao = expressao.replace(conta, resultado.toString()); 
-                    
-                }else if(operador.equals("=")){
-                    conta= expressao.substring( inicioOperando1, finalOperando2);
-                    resultado = this.conta(operando1, operador, operando2);
-                    expressao = expressao.replace(conta, resultado.toString()); 
+                switch (operador) {
+                    case "not":
+                        conta = expressao.substring(inicioOperando1, finalOperando2);
+                        resultado = !Boolean.parseBoolean(operando2);
+                        expressao = expressao.replace(conta, " "+resultado.toString()+" ");
+                        break;
+                //expressao = expressao.replace(conta, resultado.toString());
+                    case "or":
+                    case "and":
+                        conta= expressao.substring( inicioOperando1, finalOperando2);
+                        resultado = this.conta( Boolean.parseBoolean(operando1), operador, Boolean.parseBoolean(operando2) );
+                        System.out.println("1:"+Boolean.parseBoolean(operando1));
+                        System.out.println("2:"+Boolean.parseBoolean(operando2));
+                        expressao = expressao.replace(conta, " "+resultado.toString()+" ");
+                        break;
+                    case "<=":
+                    case ">=":
+                    case "<":
+                    case ">":
+                        conta= expressao.substring( inicioOperando1, finalOperando2); 
+                        resultado = this.conta(Double.parseDouble(operando1), operador, Double.parseDouble(operando2));
+                        expressao = expressao.replace(conta, " "+resultado.toString()+" ");
+                        break;
+                    case "=":
+                        conta= expressao.substring( inicioOperando1, finalOperando2);
+                        resultado = this.conta(operando1, operador, operando2);
+                        expressao = expressao.replace(conta, " "+resultado.toString()+" ");
+                        break;
+                    default:
+                        break;
                 }
-                //expressao = expressao.replace(conta, resultado.toString()); 
             }
         }
         return Boolean.parseBoolean(expressao);
     }
     
     private int getInicioOperando1(String expressao, int posicaoOperador) {
-        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
+        List<Character> naoPermitidos = new ArrayList<>(Arrays.asList('>', '=', '<', ' '));
         Character operadorAnterior;
             for (int i = posicaoOperador; i > 1; i--) {  //
                 operadorAnterior = expressao.charAt(i - 1);
-                if (!numerosELetras.contains(operadorAnterior)) {
+                if (naoPermitidos.contains(operadorAnterior)) {
                     return i;
                 }
             }
@@ -106,11 +112,11 @@ public class ResolveExpressaoLogica <T> implements ResolveExpressao{
     }
     
     private int getFinalOperando2(String expressao, int posicaoOperador) {
-        List<Character> numerosELetras = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'));
+        List<Character> naoPermitidos = new ArrayList<>(Arrays.asList('>', '=', '<', ' ', ')'));
         Character operadorPosterior;
             for (int i = posicaoOperador+1 ; i < (expressao.length()-1); i++) {
                 operadorPosterior = expressao.charAt(i);
-                if (!numerosELetras.contains(operadorPosterior)) {
+                if (naoPermitidos.contains(operadorPosterior)) {
                     return i;
                 }
             }

@@ -44,7 +44,7 @@ public class ComandoIfTest {
     @Test
     public void testExecuta() {
         ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica("true"));
-       ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica("false"));
+        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica("false"));
         ArrayList<Comando> cmdif = new ArrayList<>();
         ArrayList<Comando> cmdelse = new ArrayList<>();
         cmdif.add(cmdP);
@@ -54,6 +54,7 @@ public class ComandoIfTest {
         ComandoIf instance = new ComandoIf(new ExpressaoLogica("true"), cmdif, false, cmdif);
         ComandoIf instance2 = new ComandoIf(new ExpressaoLogica("false"), cmdif, true, cmdelse);
         ComandoIf instance3 = new ComandoIf(new ExpressaoLogica("false"), cmdif, false, cmdelse);
+        
         instance.run();
         System.out.println();
         instance2.run();
