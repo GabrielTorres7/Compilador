@@ -129,7 +129,7 @@ public class Compilador {
                                 inicioComando = a - 1;
                             }
                         }
-                        print = new ComandoPrint(new ExpressaoAritmetica(expressao));
+                        print = new ComandoPrint(analisaExpressao.getResultado(expressao));
                         comandos.add(print);
                         i = inicioComando;
                     }
@@ -272,7 +272,7 @@ public class Compilador {
                         }
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoWhile = new ComandoWhile(new ExpressaoLogica(expressao), compilador.getComandos());
+                        comandoWhile = new ComandoWhile((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos());
                         comandos.add(comandoWhile);
                         i = inicioComando;
                     }
@@ -428,7 +428,7 @@ public class Compilador {
                         compilador.analisaComandos();
                         compiladorBlocoElse = new Compilador(subProgramaElse);
                         compiladorBlocoElse.analisaComandos();
-                        comandoIf = new ComandoIf(new ExpressaoLogica(expressao), compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
+                        comandoIf = new ComandoIf((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
                         comandos.add(comandoIf);
                         i = inicioComando;
                     }
@@ -600,8 +600,8 @@ public class Compilador {
                         
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoAtribuicao = new ComandoAtribuicao(variavel, new ExpressaoAritmetica(atribuindo));
-                        comandoFor = new ComandoFor(comandoAtribuicao, tipo, new ExpressaoAritmetica(expressao), compilador.getComandos());
+                        comandoAtribuicao = new ComandoAtribuicao(variavel, analisaExpressao.getResultado(atribuindo));
+                        comandoFor = new ComandoFor(comandoAtribuicao, tipo, (ExpressaoAritmetica)analisaExpressao.getResultado(expressao), compilador.getComandos());
                         comandos.add(comandoFor);
                         i = inicioComando;
                     }
@@ -680,10 +680,10 @@ public class Compilador {
                             subExpressaoAtribuicao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
 
                             if (!variaveis.containsKey(palavraAux)) {
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, new ExpressaoAritmetica(subExpressaoAtribuicao) );
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao) );
                             } else if (variaveis.containsKey(palavraAux)) {
                                 variaveis.remove(palavraAux);
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, new ExpressaoAritmetica(subExpressaoAtribuicao));
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao));
                             }
                             i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
                         } else {

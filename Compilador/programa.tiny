@@ -1,5 +1,4 @@
 a:=2
-for i :=  2   to 4  do
 print (8)
 println 
 print (55)
