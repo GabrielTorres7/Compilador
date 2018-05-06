@@ -65,10 +65,13 @@ public class AnalisaExpressao {
 
    
     public Expressao getResultado (String expressao){
+        
         //VARIAVEIS PARA TESTE
         /*ComandoAtribuicao a  = new ComandoAtribuicao("a",new ExpressaoAritmetica("50"));
         ComandoAtribuicao b =  new ComandoAtribuicao("b",new ExpressaoAritmetica("98"));
         ComandoAtribuicao feijao =  new ComandoAtribuicao("feijao",new ExpressaoAritmetica("30"));*/
+        //APAGAR
+      //  System.out.println("Inicial="+expressao);
         
         // Preenchendo lista com letras de a-z
         letras.add("a"); letras.add("b"); letras.add("c"); letras.add("d"); letras.add("e"); letras.add("f"); letras.add("g");
@@ -83,11 +86,14 @@ public class AnalisaExpressao {
         //Preenchendo relop
         relop.add("=");relop.add("<");relop.add("<=");relop.add(">");relop.add(">=");relop.add("<>");
         //preenchendo reservadas
-        reservadas.add(" mod "); reservadas.add(" div "); reservadas.add("and"); reservadas.add("or");
+        reservadas.add(" mod "); reservadas.add(" div "); reservadas.add("and"); reservadas.add("or"); 
+        reservadas.add("true"); reservadas.add("false");
         //TESTE
 //        System.out.println("Inicial = "+expressao);
         testaParenteses(expressao);
         if(expressao.charAt(0)=='"' && expressao.charAt(expressao.length()-1)=='"'){
+            //APAGAR
+      //      System.out.println("FinalString="+expressao);
             return ((Expressao) new ExpressaoLogica(expressao));
         }
         for(i=0; i<expressao.length(); i++){
@@ -116,6 +122,7 @@ public class AnalisaExpressao {
                                 if(Aplicacao.variaveis.containsKey(palavraAux)){
                                     //VALOR VARIAVEL
                                     expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
+                                    System.out.println();
                                 }// se nao é variavel E nao é reservada
                 //                System.out.println("auxiliar="+palavraAux);
                                 if (reservadas.contains(palavraAux)) {
@@ -123,6 +130,7 @@ public class AnalisaExpressao {
                                     break;
                                 }
                                 if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
+                               //     System.out.println("alavraux="+palavraAux);
                                     throw new RuntimeException("Expressao invalida! Palavra n existe!");
                                 }
                                 
@@ -140,7 +148,7 @@ public class AnalisaExpressao {
                     }
                     // se e reservada
                      if(reservadas.contains(palavraAux)){
-                    //    System.out.println("contem "+palavraAux);
+                    //   System.out.println("contem "+palavraAux);
                         break;
                     }                
                     //Testa se nao e variavel E nao e reservada
@@ -184,7 +192,10 @@ public class AnalisaExpressao {
                     continue;
                  if(Aplicacao.variaveis.containsKey(palavraAux)){
                      //VALOR VARIAVEL
+                     //Criar especie de "chave burra" pra ver se é um booleano, para nao realizar operações aritmeticas assim
+                     
                     expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
+                     System.out.println("aaa");
                  }
                 if(mulop.contains(palavraAux)||palavraAux.equals("") ||
                     (!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux) ))
@@ -295,12 +306,18 @@ public class AnalisaExpressao {
                     }
                 }
                 //Resolve e retorna
-                return (Expressao)new ExpressaoAritmetica(expressao);
+                //APAGAR
+           //     System.out.println("FinalLogic="+expressao);
+           //     System.out.println("ResultLogic="+new ExpressaoLogica(expressao).getResultado());
+                return (Expressao)new ExpressaoLogica(expressao);
 
             }
             //Nao contem operador logico , é aritmetica
            // System.out.println("final="+expressao);
-                return (Expressao)new ExpressaoLogica(expressao);
+                //APAGAR
+             //   System.out.println("FinalArit="+expressao);
+            //    System.out.println("ResultArit="+new ExpressaoAritmetica(expressao).getResultado());
+                return (Expressao)new ExpressaoAritmetica(expressao);
     }    
 }
 
