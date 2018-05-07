@@ -122,7 +122,6 @@ public class AnalisaExpressao {
                                 if(Aplicacao.variaveis.containsKey(palavraAux)){
                                     //VALOR VARIAVEL
                                     expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
-                                    System.out.println();
                                 }// se nao é variavel E nao é reservada
                 //                System.out.println("auxiliar="+palavraAux);
                                 if (reservadas.contains(palavraAux)) {

@@ -1,7 +1,8 @@
 a:=2
-print (8)
-println 
-print (55)
+b:=3
+readint(a)
+print (a+b)
 println
-endfor
+if (a>1) then print(b) else print(b) endif
+println
 end

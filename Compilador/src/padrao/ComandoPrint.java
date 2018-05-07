@@ -12,15 +12,17 @@ import Expressao.Expressao;
  */
 public class ComandoPrint implements Comando{
     
-    private final Expressao mensagem;
+    private final String expressao;
+    AnalisaExpressao analisaExpressao;
     
-    public ComandoPrint(Expressao mensagem){
-        this.mensagem = mensagem;
+    public ComandoPrint(String expressao){
+        this.expressao = expressao;
+        analisaExpressao = new AnalisaExpressao(expressao);
     }
 
     @Override
     public void run() {
-        System.out.print(mensagem.getResultado());  //Metodo que imprime o valor da mensagem
+        System.out.print(analisaExpressao.getResultado(expressao).getResultado());  //Metodo que imprime o valor da mensagem
     }
     
 }

@@ -14,15 +14,17 @@ import java.util.Scanner;
 public class ComandoReadInt implements Comando{
     
     private final String nomeVariavel;
+    AnalisaExpressao analisaExpressao;
     
     public ComandoReadInt(String nomeVariavel){
         this.nomeVariavel = nomeVariavel;
+        analisaExpressao = new AnalisaExpressao();
     }
     
     @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
-        Aplicacao.variaveis.get(this.nomeVariavel).setExpressao( new ExpressaoAritmetica( ( (Integer)sc.nextInt()).toString() ) );
+        Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(  analisaExpressao.getResultado(Integer.toString(sc.nextInt())));
     }
     
 }

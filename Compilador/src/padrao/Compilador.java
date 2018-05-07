@@ -129,7 +129,7 @@ public class Compilador {
                                 inicioComando = a - 1;
                             }
                         }
-                        print = new ComandoPrint(analisaExpressao.getResultado(expressao));
+                        print = new ComandoPrint(expressao);
                         comandos.add(print);
                         i = inicioComando;
                     }
@@ -415,6 +415,9 @@ public class Compilador {
                                     }
                                     a++;
                                     caractere = programa.charAt(a);
+                                    if(a == programa.length()-1){
+                                        throw new SintaxeIfIncorretaException("Sintaxe do comando if incorreta. Endif não encontrado.");
+                                    }
                                 }
                                 subProgramaElse = subPrograma;
                             }else{
@@ -681,9 +684,11 @@ public class Compilador {
 
                             if (!variaveis.containsKey(palavraAux)) {
                                 comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao) );
+                                comandos.add(comandoAtribuicao);
                             } else if (variaveis.containsKey(palavraAux)) {
                                 variaveis.remove(palavraAux);
                                 comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao));
+                                comandos.add(comandoAtribuicao);
                             }
                             i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
                         } else {
@@ -693,6 +698,9 @@ public class Compilador {
                 }
                 palavraAux = "";
             }
+            if(i == programa.length()-1){
+                    throw new CaracterSemSemanticaException("Programa não foi finalizado."); 
+                }
         }
     }
     
