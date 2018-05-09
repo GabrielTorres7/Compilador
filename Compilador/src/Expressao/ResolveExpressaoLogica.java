@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ResolveExpressaoLogica implements ResolveExpressao{
     
-    private static final String[] OPERADORES = {"or", "and", "not", "=", "<", ">", "<=", ">=", "<>"};
+    private static final String[] OPERADORES = {"or", "and", "not", "<", ">", "<=", ">=", "<>", "="};
 
     @Override
     public Object resolveExpressao(String expressao) {
@@ -47,7 +47,21 @@ public class ResolveExpressaoLogica implements ResolveExpressao{
                 
                 inicioOperador = expressao.indexOf(operador);
                 finalOperador = expressao.indexOf(operador)+ operador.length();
-
+                if(operador.equals("<")){
+                    if(expressao.charAt(finalOperador)=='='){
+                        operador = "<=";
+                        finalOperador++;
+                    }else if(expressao.charAt(finalOperador)=='>'){
+                        operador = "<>";
+                        finalOperador++;
+                    }
+                }
+                if(operador.equals(">")){
+                    if(expressao.charAt(finalOperador)=='='){
+                        operador = ">=";
+                        finalOperador++;
+                    }                    
+                }
                 //seta o operando1 dos operadores unarios
                 if(operador.equals("not")){
                     inicioOperando1 = finalOperando1 = inicioOperador;
