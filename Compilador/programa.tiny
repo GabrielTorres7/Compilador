@@ -1,4 +1,2 @@
-a:=0
-for a:=5 downto 1 do print(a) println endfor
-println
-end
+a:=0 
+print(a)

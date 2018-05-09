@@ -130,7 +130,7 @@ public class AnalisaExpressao {
                                 }
                                 if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
                                //     System.out.println("alavraux="+palavraAux);
-                                    throw new RuntimeException("Expressao invalida! Palavra n existe!");
+                                    throw new RuntimeException("Expressao invalida! Palavra não existe!");
                                 }
                                 
                             }

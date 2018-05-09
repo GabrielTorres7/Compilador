@@ -264,6 +264,9 @@ public class Compilador {
                                 }
                                 a++;
                                 caractere = programa.charAt(a);
+                                if(a == programa.length()-1){
+                                    throw new SintaxeWhileIncorretaException("Sintaxe do comando while incorreta. Endwhile não encontrado.");
+                                }
                             }
                         inicioComando = a-1;
                             
@@ -594,6 +597,9 @@ public class Compilador {
                                 }
                                 a++;
                                 caractere = programa.charAt(a);
+                                if(a == programa.length()-1){
+                                        throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta. Endfor não encontrado.");
+                                }
                             }
                         inicioComando = a-1;
                             
@@ -691,7 +697,9 @@ public class Compilador {
                         } else {
                             throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
                         }
-                    }
+                    }else {
+                            throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
+                        }
                 }
                 palavraAux = "";
             }
