@@ -13,17 +13,19 @@ import java.util.ArrayList;
  */
 public class ComandoWhile implements Comando{
     
-    private final ExpressaoLogica expressao;
+    private final String expressao;
     private final ArrayList<Comando> blocoComandosWhile;
+    AnalisaExpressao analisaExpressao;
     
-    public ComandoWhile(ExpressaoLogica expressao, ArrayList<Comando> comandos){
+    public ComandoWhile(String expressao, ArrayList<Comando> comandos){
+        analisaExpressao = new AnalisaExpressao();
         this.expressao = expressao;
         this.blocoComandosWhile = comandos;
     }
 
     @Override
     public void run() {
-        while((boolean)expressao.getResultado()){
+        while((boolean)analisaExpressao.getResultado(expressao).getResultado()){
             blocoComandosWhile.forEach( (cmd) -> cmd.run() );
         }
     }

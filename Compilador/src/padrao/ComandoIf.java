@@ -14,11 +14,13 @@ import java.util.ArrayList;
 public class ComandoIf implements Comando{
 
     private final boolean temElse;
-    private final ExpressaoLogica expressao;
+    private final String expressao;
+    AnalisaExpressao analisaExpressao;
     private final ArrayList<Comando> blocoComandosIf;
     private final ArrayList<Comando> blocoComandosElse;
 
-    public ComandoIf(ExpressaoLogica expressao, ArrayList<Comando> blocoIf, Boolean temElse, ArrayList<Comando> blocoElse){ 
+    public ComandoIf(String expressao, ArrayList<Comando> blocoIf, Boolean temElse, ArrayList<Comando> blocoElse){ 
+        analisaExpressao = new AnalisaExpressao();
         this.expressao = expressao;
         this.blocoComandosIf = blocoIf;
         this.temElse = temElse;
@@ -27,7 +29,7 @@ public class ComandoIf implements Comando{
     
     @Override
     public void run() {
-        if((Boolean)expressao.getResultado()){
+        if((Boolean)analisaExpressao.getResultado(expressao).getResultado()){
             blocoComandosIf.forEach( (cmd) -> cmd.run());
         }else if(temElse){
             blocoComandosElse.forEach( (cmd) -> cmd.run());

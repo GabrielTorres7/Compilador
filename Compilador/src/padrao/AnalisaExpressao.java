@@ -65,7 +65,6 @@ public class AnalisaExpressao {
 
    
     public Expressao getResultado (String expressao){
-        
         //VARIAVEIS PARA TESTE
         /*ComandoAtribuicao a  = new ComandoAtribuicao("a",new ExpressaoAritmetica("50"));
         ComandoAtribuicao b =  new ComandoAtribuicao("b",new ExpressaoAritmetica("98"));

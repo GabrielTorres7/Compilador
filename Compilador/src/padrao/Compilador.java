@@ -275,7 +275,7 @@ public class Compilador {
                         }
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoWhile = new ComandoWhile((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos());
+                        comandoWhile = new ComandoWhile(expressao, compilador.getComandos());
                         comandos.add(comandoWhile);
                         i = inicioComando;
                     }
@@ -434,7 +434,7 @@ public class Compilador {
                         compilador.analisaComandos();
                         compiladorBlocoElse = new Compilador(subProgramaElse);
                         compiladorBlocoElse.analisaComandos();
-                        comandoIf = new ComandoIf((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
+                        comandoIf = new ComandoIf(expressao, compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
                         comandos.add(comandoIf);
                         i = inicioComando;
                     }
@@ -698,6 +698,7 @@ public class Compilador {
                             throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
                         }
                     }else {
+                        if(!palavraAux.equals(""))
                             throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
                         }
                 }

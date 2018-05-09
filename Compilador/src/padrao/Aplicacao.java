@@ -28,7 +28,7 @@ public class Aplicacao {
         compilador = new Compilador(programa);
         compilador.analisaComandos();
         compilador.executaComandos();
-        System.out.println("Programa encerrado");
+        System.out.println("\nPrograma encerrado");
     }
 
 }
