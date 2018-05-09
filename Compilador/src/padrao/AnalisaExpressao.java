@@ -88,7 +88,7 @@ public class AnalisaExpressao {
         testaParenteses(expressao);
         //Testa se é Strig
         if(expressao.charAt(0)=='"' && expressao.charAt(expressao.length()-1)=='"'){
-            return  new ExpressaoConstante(expressao);
+            return  new ExpressaoConstante(expressao.replace("\"",""));
         }
         for(i=0; i<expressao.length(); i++){
             String aux = String.valueOf(expressao.charAt(i)); //Aux é uma String de somente um char, que no caso o sendo avaliado nomomento
