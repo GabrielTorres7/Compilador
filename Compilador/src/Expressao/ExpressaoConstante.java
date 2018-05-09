@@ -14,6 +14,10 @@ public class ExpressaoConstante extends Expressao{
     public ExpressaoConstante(ResolveExpressao resolve, String expressao) {
         super(null, expressao);
     }
+
+    public ExpressaoConstante(String expressao) {
+        super(null, expressao);
+    }
     
     @Override
     public Object getResultado(){

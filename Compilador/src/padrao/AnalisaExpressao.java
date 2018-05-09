@@ -1,6 +1,7 @@
 package padrao;
 import Expressao.Expressao;
 import Expressao.ExpressaoAritmetica;
+import Expressao.ExpressaoConstante;
 import Expressao.ExpressaoLogica;
 import Expressao.ResolveExpressaoAritmetica;
 import Expressao.ResolveExpressaoLogica;
@@ -65,11 +66,6 @@ public class AnalisaExpressao {
 
    
     public Expressao getResultado (String expressao){
-        //VARIAVEIS PARA TESTE
-        /*ComandoAtribuicao a  = new ComandoAtribuicao("a",new ExpressaoAritmetica("50"));
-        ComandoAtribuicao b =  new ComandoAtribuicao("b",new ExpressaoAritmetica("98"));
-        ComandoAtribuicao feijao =  new ComandoAtribuicao("feijao",new ExpressaoAritmetica("30"));*/
-        //APAGAR
       //  System.out.println("Inicial="+expressao);
         
         // Preenchendo lista com letras de a-z
@@ -90,10 +86,9 @@ public class AnalisaExpressao {
         //TESTE
 //        System.out.println("Inicial = "+expressao);
         testaParenteses(expressao);
+        //Testa se é Strig
         if(expressao.charAt(0)=='"' && expressao.charAt(expressao.length()-1)=='"'){
-            //APAGAR
-      //      System.out.println("FinalString="+expressao);
-            return ((Expressao) new ExpressaoLogica(expressao));
+            return  new ExpressaoConstante(expressao);
         }
         for(i=0; i<expressao.length(); i++){
             String aux = String.valueOf(expressao.charAt(i)); //Aux é uma String de somente um char, que no caso o sendo avaliado nomomento
