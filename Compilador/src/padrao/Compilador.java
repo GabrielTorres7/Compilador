@@ -606,7 +606,7 @@ public class Compilador {
                         
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoAtribuicao = new ComandoAtribuicao(variavel, analisaExpressao.getResultado(atribuindo));
+                        comandoAtribuicao = new ComandoAtribuicao(variavel, atribuindo);
                         comandoFor = new ComandoFor(comandoAtribuicao, tipo, (ExpressaoAritmetica)analisaExpressao.getResultado(expressao), compilador.getComandos());
                         comandos.add(comandoFor);
                         i = inicioComando;
@@ -686,11 +686,11 @@ public class Compilador {
                             subExpressaoAtribuicao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
 
                             if (!variaveis.containsKey(palavraAux)) {
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao) );
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, subExpressaoAtribuicao );
                                 comandos.add(comandoAtribuicao);
                             } else if (variaveis.containsKey(palavraAux)) {
                                 variaveis.remove(palavraAux);
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao));
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, subExpressaoAtribuicao);
                                 comandos.add(comandoAtribuicao);
                             }
                             i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
