@@ -264,6 +264,9 @@ public class Compilador {
                                 }
                                 a++;
                                 caractere = programa.charAt(a);
+                                if(a == programa.length()-1){
+                                    throw new SintaxeWhileIncorretaException("Sintaxe do comando while incorreta. Endwhile não encontrado.");
+                                }
                             }
                         inicioComando = a-1;
                             
@@ -272,7 +275,7 @@ public class Compilador {
                         }
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoWhile = new ComandoWhile((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos());
+                        comandoWhile = new ComandoWhile(expressao, compilador.getComandos());
                         comandos.add(comandoWhile);
                         i = inicioComando;
                     }
@@ -431,7 +434,7 @@ public class Compilador {
                         compilador.analisaComandos();
                         compiladorBlocoElse = new Compilador(subProgramaElse);
                         compiladorBlocoElse.analisaComandos();
-                        comandoIf = new ComandoIf((ExpressaoLogica)analisaExpressao.getResultado(expressao), compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
+                        comandoIf = new ComandoIf(expressao, compilador.getComandos(), temElse, compiladorBlocoElse.getComandos());
                         comandos.add(comandoIf);
                         i = inicioComando;
                     }
@@ -534,12 +537,9 @@ public class Compilador {
                                 a++;
                                 caractere = programa.charAt(a);
                             }
-                            if(tipo.equals("downto")){
-                                a++;
-                                caractere = programa.charAt(a);     
-                            }else{
+                            if(!tipo.equals("downto")){
                                 throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
-                            }
+                            }   
                         }else{
                             throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
                         }
@@ -597,13 +597,16 @@ public class Compilador {
                                 }
                                 a++;
                                 caractere = programa.charAt(a);
+                                if(a == programa.length()-1){
+                                        throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta. Endfor não encontrado.");
+                                }
                             }
                         inicioComando = a-1;
                             
                         
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
-                        comandoAtribuicao = new ComandoAtribuicao(variavel, analisaExpressao.getResultado(atribuindo));
+                        comandoAtribuicao = new ComandoAtribuicao(variavel, atribuindo);
                         comandoFor = new ComandoFor(comandoAtribuicao, tipo, (ExpressaoAritmetica)analisaExpressao.getResultado(expressao), compilador.getComandos());
                         comandos.add(comandoFor);
                         i = inicioComando;
@@ -683,18 +686,21 @@ public class Compilador {
                             subExpressaoAtribuicao = expressao.substring(0, posicaoComandoTerminoExpressaoAtribuicao);
 
                             if (!variaveis.containsKey(palavraAux)) {
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao) );
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, subExpressaoAtribuicao );
                                 comandos.add(comandoAtribuicao);
                             } else if (variaveis.containsKey(palavraAux)) {
                                 variaveis.remove(palavraAux);
-                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, analisaExpressao.getResultado(subExpressaoAtribuicao));
+                                comandoAtribuicao = new ComandoAtribuicao(palavraAux, subExpressaoAtribuicao);
                                 comandos.add(comandoAtribuicao);
                             }
                             i = inicioComando; //Pula o contandor para o ultimo caractere lido dentro do fluxo de atribuição.
                         } else {
                             throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
                         }
-                    }
+                    }else {
+                        if(!palavraAux.equals(""))
+                            throw new CaracterSemSemanticaException("Caracter sem sentido no programa.");
+                        }
                 }
                 palavraAux = "";
             }

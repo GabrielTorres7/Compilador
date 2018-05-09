@@ -13,14 +13,15 @@ import Expressao.Expressao;
 public class ComandoAtribuicao implements Comando{
     
     private final String nomeVariavel;
-
-    private final Expressao expressao;
+    AnalisaExpressao analisaExpressao;
+    private final String expressao;
     
-    public ComandoAtribuicao(String nome, Expressao exp){
+    public ComandoAtribuicao(String nome, String exp){
         this.nomeVariavel = nome;
         this.expressao = exp;
+        analisaExpressao = new AnalisaExpressao();
          if(!Aplicacao.variaveis.containsKey(nomeVariavel)){
-             Aplicacao.variaveis.put(this.nomeVariavel, new Variavel(this.expressao, nomeVariavel));
+             Aplicacao.variaveis.put(this.nomeVariavel, new Variavel(analisaExpressao.getResultado(expressao), nomeVariavel));
          }
         
     }
@@ -30,12 +31,12 @@ public class ComandoAtribuicao implements Comando{
     }
 
     public Expressao getExpressao() {
-        return expressao;
+        return analisaExpressao.getResultado(expressao);
     }
 
     @Override
     public void run() {
-            Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(this.expressao);
+            Aplicacao.variaveis.get(this.nomeVariavel).setExpressao(analisaExpressao.getResultado(expressao));
     }
     
 }

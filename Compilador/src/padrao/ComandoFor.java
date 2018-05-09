@@ -31,14 +31,14 @@ public class ComandoFor implements Comando{
     public void run() {
 
         if(tipo.equals("to")){
-            for(Integer iterador=valorAtribuicao; iterador < fim; iterador++){
+            for(Integer iterador=valorAtribuicao; iterador <= fim; iterador++){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
                 blocoComandosFor.forEach((cmd) -> {
                     cmd.run();
                 });
             }
         }else if(tipo.equals("downto")){
-            for(Integer iterador=valorAtribuicao; iterador > fim; iterador--){
+            for(Integer iterador=valorAtribuicao; iterador >= fim; iterador--){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
 
                 blocoComandosFor.forEach((cmd) -> {

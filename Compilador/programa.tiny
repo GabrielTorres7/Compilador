@@ -1,8 +1,22 @@
-a:=2
-b:=3
-readint(a)
-print (a+b)
+bimestre1:=0 
+readint(bimestre1)
+
+bimestre2:=0
+readint(bimestre2)
+
+bimestre3:=0
+readint(bimestre3)
+
+bimestre4:=0
+readint(bimestre4)
+
+media:=(bimestre1+bimestre2+bimestre3+bimestre4)/4
+print(media)
 println
-if (a>1) then print(b) else print(b) endif
-println
+if (media>=6) then
+   print(bimestre1) 
+else 
+   print(bimestre2) 
+endif
+
 end
