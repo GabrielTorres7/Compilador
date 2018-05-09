@@ -48,13 +48,12 @@ public class ComandoForTest {
                         System.out.println("Indice " + i);
                 }
         */
-        ExpressaoAritmetica a1 = new ExpressaoAritmetica("0");
-        ComandoAtribuicao i = new ComandoAtribuicao("teste", a1);
+        ComandoAtribuicao i = new ComandoAtribuicao("teste", "0");
         ExpressaoAritmetica condicaoParada = new ExpressaoAritmetica("5");
         String tipo = "to";
         ArrayList<Comando> comandos = new ArrayList<>();
         
-        comandos.add(new ComandoPrint(i.getExpressao()));
+        comandos.add(new ComandoPrint(i.getExpressao().getExpressao()));
         comandos.add(new ComandoPrintln());
         
         
@@ -73,11 +72,9 @@ public class ComandoForTest {
                 }
         */
         System.out.println("Teste 2");
-        ExpressaoAritmetica a1 = new ExpressaoAritmetica("0");
-        ExpressaoAritmetica a2 = new ExpressaoAritmetica("15");
         
-        ComandoAtribuicao i = new ComandoAtribuicao("teste", a1);
-        ComandoAtribuicao j = new ComandoAtribuicao("teste2", a2);
+        ComandoAtribuicao i = new ComandoAtribuicao("teste", "0");
+        ComandoAtribuicao j = new ComandoAtribuicao("teste2", "15");
         
         String tipo1 = "to";
         String tipo2 = "downto";
@@ -86,12 +83,12 @@ public class ComandoForTest {
         ExpressaoAritmetica condicaoParada2 = new ExpressaoAritmetica("10");
 
         ArrayList<Comando> comandos2 = new ArrayList<>();
-        comandos2.add(new ComandoPrint(j.getExpressao()));
+        comandos2.add(new ComandoPrint(j.getExpressao().getExpressao()));
         comandos2.add(new ComandoPrintln());
         ComandoFor teste2 = new ComandoFor(j, tipo2, condicaoParada2, comandos2);   
         
         ArrayList<Comando> comandos = new ArrayList<>();
-        comandos.add(new ComandoPrint(i.getExpressao()));
+        comandos.add(new ComandoPrint(i.getExpressao().getExpressao()));
         comandos.add(new ComandoPrintln());
         comandos.add(teste2);
         

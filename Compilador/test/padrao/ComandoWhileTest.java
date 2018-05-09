@@ -42,13 +42,13 @@ public class ComandoWhileTest {
      */
     @Test
     public void testExecuta() {
-        ComandoPrint cmdP = new ComandoPrint(new ExpressaoLogica("true"));
-        ComandoPrint cmdP2 = new ComandoPrint(new ExpressaoLogica("false"));
+        ComandoPrint cmdP = new ComandoPrint("true");
+        ComandoPrint cmdP2 = new ComandoPrint("false");
         ArrayList<Comando> comandos = new ArrayList<>();
         comandos.add(cmdP);
         comandos.add(cmdP2);
         
-        ComandoWhile instance = new ComandoWhile(new ExpressaoLogica("true"), comandos);
+        ComandoWhile instance = new ComandoWhile("true", comandos);
         instance.run();
     }
     
