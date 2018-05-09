@@ -534,12 +534,9 @@ public class Compilador {
                                 a++;
                                 caractere = programa.charAt(a);
                             }
-                            if(tipo.equals("downto")){
-                                a++;
-                                caractere = programa.charAt(a);     
-                            }else{
+                            if(!tipo.equals("downto")){
                                 throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
-                            }
+                            }   
                         }else{
                             throw new SintaxeForIncorretaException("Sintaxe do comando for incorreta.");
                         }

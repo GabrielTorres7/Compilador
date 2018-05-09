@@ -1,8 +1,4 @@
-a:=2
-b:=3
-readint(a)
-print (a+b)
-println
-if (a>1) then print(b) else print(b) endif
+a:=0
+for a:=5 downto 1 do print(a) println endfor
 println
 end
