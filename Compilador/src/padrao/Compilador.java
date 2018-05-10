@@ -122,6 +122,7 @@ public class Compilador {
                                 a++;
                                 caractere = programa.charAt(a);
                                 if (caractere == ' ') {
+                                    expressao+=caractere;
                                     while (caractere == ' ') {
                                         a++;
                                         caractere = programa.charAt(a);
@@ -387,7 +388,6 @@ public class Compilador {
                                     if (subPalavraAux.equals("endif")) {
                                         saldoIf--;
                                         subPrograma += subPalavraAux + " ";
-                                        return;
                                     } else if (subPalavraAux.equals("if")) {
                                         saldoIf++;
                                         subPrograma += subPalavraAux + " ";
@@ -615,7 +615,7 @@ public class Compilador {
                         compilador = new Compilador(subPrograma);
                         compilador.analisaComandos();
                         comandoAtribuicao = new ComandoAtribuicao(variavel, atribuindo);
-                        comandoFor = new ComandoFor(comandoAtribuicao, tipo, (ExpressaoAritmetica) analisaExpressao.getResultado(expressao), compilador.getComandos());
+                        comandoFor = new ComandoFor(comandoAtribuicao, tipo, expressao, compilador.getComandos());
                         comandos.add(comandoFor);
                         i = inicioComando;
                     }

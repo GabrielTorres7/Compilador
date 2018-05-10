@@ -6,9 +6,10 @@ readint(b)
 
 if(a>b) then
     print(a-b)
-else
-    if(a<b) then
-         print (b-a)
-    endif
 endif 
+
+if(b>a) then
+    print(b-a)
+endif
+
 end

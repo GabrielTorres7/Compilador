@@ -16,29 +16,33 @@ public class ComandoFor implements Comando{
     private final ComandoAtribuicao atribuicao;
     private final Integer valorAtribuicao;
     private final String tipo;
-    private final Integer fim;
+    private final String fim;
     private final ArrayList<Comando> blocoComandosFor;
+    AnalisaExpressao analisaExpressao;
     
-    public ComandoFor(ComandoAtribuicao atribuicao, String tipo, ExpressaoAritmetica expressao, ArrayList<Comando> comandos){
+    public ComandoFor(ComandoAtribuicao atribuicao, String tipo, String expressao, ArrayList<Comando> comandos){
         this.atribuicao = atribuicao;
         this.valorAtribuicao = ((Double)((ExpressaoAritmetica)atribuicao.getExpressao()).getResultado()).intValue();
         this.tipo = tipo;
-        this.fim = ((Double)expressao.getResultado()).intValue();
+        this.fim = expressao;
         this.blocoComandosFor = comandos;
+        analisaExpressao = new AnalisaExpressao();
     }
 
     @Override
     public void run() {
-
+        Integer fimAux;
+        ExpressaoAritmetica expArit = (ExpressaoAritmetica) analisaExpressao.getResultado(fim);
+        fimAux = ((Double)expArit.getResultado()).intValue();
         if(tipo.equals("to")){
-            for(Integer iterador=valorAtribuicao; iterador <= fim; iterador++){
+            for(Integer iterador=valorAtribuicao; iterador <= fimAux; iterador++){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
                 blocoComandosFor.forEach((cmd) -> {
                     cmd.run();
                 });
             }
         }else if(tipo.equals("downto")){
-            for(Integer iterador=valorAtribuicao; iterador >= fim; iterador--){
+            for(Integer iterador=valorAtribuicao; iterador >= fimAux; iterador--){
                 Aplicacao.variaveis.get(atribuicao.getNomeVariavel()).getExpressao().setExpressao(iterador.toString());
 
                 blocoComandosFor.forEach((cmd) -> {

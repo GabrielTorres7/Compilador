@@ -1,0 +1,19 @@
+a := 0
+b := 1
+auxiliar:=0
+n:=0
+i:=0
+
+print("Digite um numero: ")
+readint(n)
+print(b)
+println
+
+for i:=0 to n-1 do
+    auxiliar := a + b
+    a := b
+    b := auxiliar
+    print(auxiliar)
+    println
+endfor
+end
