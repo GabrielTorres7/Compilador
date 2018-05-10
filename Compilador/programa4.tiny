@@ -1,0 +1,22 @@
+fat:=1
+n:=0
+a:=0
+i:=0
+soma:=0
+
+for i:=1 to 15 do
+    fat := 1
+    print("Digite um numero para fazer seu fatorial: ")
+    readint(n)
+    for a:=1 to n do
+         aux1:=fat
+         fat:=aux1 * a
+    endfor 
+    aux:=soma
+    soma:=fat+aux
+endfor
+
+println
+print("Soma fatorial calculada: ")
+print(soma)
+end
