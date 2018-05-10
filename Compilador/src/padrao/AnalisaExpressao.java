@@ -79,7 +79,7 @@ public class AnalisaExpressao {
         //Preenchendo Mulop
         mulop.add("*"); mulop.add("/"); mulop.add(" mod "); mulop.add("div"); mulop.add("and");
         //Preenchendo relop
-        relop.add("=");relop.add("<");relop.add("<=");relop.add(">");relop.add(">=");relop.add("<>");
+        relop.add("=");relop.add("<");relop.add("<=");relop.add(">");relop.add(">=");relop.add("<>");relop.add("and"); relop.add("or");
         //preenchendo reservadas
         reservadas.add(" mod "); reservadas.add(" div "); reservadas.add("and"); reservadas.add("or"); 
         reservadas.add("true"); reservadas.add("false"); reservadas.add("mod"); reservadas.add("div");
@@ -94,7 +94,6 @@ public class AnalisaExpressao {
             String aux = String.valueOf(expressao.charAt(i)); //Aux é uma String de somente um char, que no caso o sendo avaliado nomomento
             //Testa se é variavel
             if(letras.contains(aux)){
-              
                int contAux;
                 String palavraAux = "";
                 String caractere ;
@@ -103,6 +102,7 @@ public class AnalisaExpressao {
                    if(!caractere.equals("(")&&
                   //      !numeros.contains(caractere)&&
                         !caractere.equals("+")&&!caractere.equals("-")&&
+                        !caractere.equals("+")&&!caractere.equals(" ")&&
                         !mulop.contains(caractere)&&
                         !relop.contains(caractere)&&
                         !caractere.equals(")") &&
@@ -124,7 +124,7 @@ public class AnalisaExpressao {
                                     break;
                                 }
                                 if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
-                               //     System.out.println("alavraux="+palavraAux);
+                              //      System.out.println("alavraux="+palavraAux);
                                     throw new RuntimeException("Expressao invalida! Palavra não existe!");
                                 }
                                 
@@ -139,16 +139,16 @@ public class AnalisaExpressao {
                     if(Aplicacao.variaveis.containsKey(palavraAux)){
                         //VALOR VARIAVEL
                         expressao = expressao.replace(palavraAux, String.valueOf(Aplicacao.variaveis.get(palavraAux).getValor()));
-                       
                     }
                     // se e reservada
+                   // System.out.println("palavraux="+palavraAux);
                      if(reservadas.contains(palavraAux)){
                     //   System.out.println("contem "+palavraAux);
                         break;
                     }                
                     //Testa se nao e variavel E nao e reservada
                     if(!Aplicacao.variaveis.containsKey(palavraAux) && !reservadas.contains(palavraAux)){
-                        System.out.println("palv="+palavraAux);
+                       // System.out.println("palv="+palavraAux);
                         throw new RuntimeException("Expressao invalida! Palavra n existe!");
                     }
                }
@@ -233,7 +233,7 @@ public class AnalisaExpressao {
                      } // a > b+5
                 }
             }
-    }//for
+        }//for
         //Verifica se a expressao contem algum elemento de relop(logico)
             int contem = 0;
             //contador auxiliar
@@ -252,7 +252,9 @@ public class AnalisaExpressao {
                       //Antes do operador
                     if(expressao.substring(0,k).contains("+") || expressao.substring(0,k).contains("-") || 
                        expressao.substring(0,k).contains("/") || expressao.substring(0,k).contains("*") ||
-                       expressao.substring(0,k).contains(" mod ") )
+                       expressao.substring(0,k).contains(" mod ") || expressao.substring(0,k).contains("mod")||
+                       expressao.substring(0,k).contains(" div ") || expressao.substring(0,k).contains("div")
+                       )
                     {
                             String substring = expressao.substring(0,k);
                             String resultado= String.valueOf(new ResolveExpressaoAritmetica().resolveExpressao(substring));
@@ -311,7 +313,7 @@ public class AnalisaExpressao {
             //Nao contem operador logico , é aritmetica
            // System.out.println("final="+expressao);
                 //APAGAR
-             //   System.out.println("FinalArit="+expressao);
+           //     System.out.println("FinalArit="+expressao);
             //    System.out.println("ResultArit="+new ExpressaoAritmetica(expressao).getResultado());
                 return (Expressao)new ExpressaoAritmetica(expressao);
     }    
